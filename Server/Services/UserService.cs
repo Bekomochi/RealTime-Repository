@@ -10,7 +10,14 @@ namespace Server.Services
     {
         public async UnaryResult<int> RegistUserAsync(string name)
         {
-            using var context = new GameDB();
+            using var context = new GameDBConnect();
+
+            /*if文チェック。
+             条件のレコード数が0より大きいなら、ReturnStatusExceptionでエラーを返す*/
+            if (context.Users.Where(user=>user.Name==name).Count()>0)
+            {
+                throw new ReturnStatusException(Grpc.Core.StatusCode.InvalidArgument, "");
+            }
 
             //テーブルにレコードを追加
             User user = new User();

@@ -3,7 +3,7 @@ using Server.Model.Entity;
 
 namespace Server.Model.Context
 {
-    public class GameDB:DbContext
+    public class GameDBConnect:DbContext
     {
         public DbSet<User> Users { get; set; }
 

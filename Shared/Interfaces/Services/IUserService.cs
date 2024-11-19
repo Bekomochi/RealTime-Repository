@@ -7,6 +7,7 @@ namespace Shared.Interfaces.Services
 {
     public interface IUserService : IService<IUserService>
     {
+        //ユーザーを登録するAPI
         UnaryResult<int> RegistUserAsync(string name);
     }
 }
