@@ -17,9 +17,7 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     /*==注意==
      *Modelは、データのみを処理するクラス。
      *その為、UIから取得/UIに設定などは、このクラスでは行わない。
-     *同様に、[SerializeField]のUIは書かないように気を付ける。
      */
-
 
     //接続ID
     public Guid ConnectionId { get; private set; }

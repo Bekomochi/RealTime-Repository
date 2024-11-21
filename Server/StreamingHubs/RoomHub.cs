@@ -8,7 +8,7 @@ namespace Server.StreamingHubs
     {
         private IGroup room;
 
-        public async Task<JoinedUser[]>JoinAsync(String roomName,int userID)
+        public async Task<JoinedUser[]>JoinAsync(string roomName,int userID)
         {
             //ルームに参加&ルームを保持する
             this.room = await this.Group.AddAsync(roomName);//指定の部屋に入室
@@ -19,7 +19,7 @@ namespace Server.StreamingHubs
 
             //グループストレージにユーザーデータを格納
             var roomStrage = this.room.GetInMemoryStorage<RoomData>();//ルームには参加者全員が参照可能な共有の保存領域がある(Memory-メモリ)
-            var joinedUser = new JoinedUser() { ConnectionID = this.ConnectionId };
+            var joinedUser = new JoinedUser() { ConnectionID = this.ConnectionId,UserData=user};
             var roomData = new RoomData() { JoinedUser = joinedUser };
             roomStrage.Set(this.ConnectionId, roomData);
 

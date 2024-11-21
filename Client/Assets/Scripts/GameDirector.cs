@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameDirectore : MonoBehaviour
+public class GameDirector : MonoBehaviour
 {//ゲーム進行を管理するクラス
     [SerializeField] GameObject characterPrefab;
     [SerializeField] RoomModel roomModel;
@@ -15,6 +15,9 @@ public class GameDirectore : MonoBehaviour
     async void Start()
     {//ユーザーが入室した時にOnJoinedUserメソッドを実行できるように、モデルに登録しておく
         roomModel.OnJoinedUser += this.OnJoinedUser;
+
+        //接続
+        await roomModel.ConnectAsync();
     }
 
     public async void JoinRoom()
@@ -30,7 +33,7 @@ public class GameDirectore : MonoBehaviour
     //ユーザーが入室した時の処理
     private void OnJoinedUser(JoinedUser user)
     {//入室したら、OnJoinedUserをInstantiateする
-        GameObject characterObject=Instantiate(characterPrefab);//インスタンス生成
+        GameObject characterObject = Instantiate(characterPrefab);//インスタンス生成
         characterObject.transform.position = new Vector3(0, 0, 0);
         characterList[user.ConnectionID]= characterObject;//フィールドで保持
     }
