@@ -30,7 +30,8 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     //ユーザー退室通知
     public Action<LeavedUser> OnLeavedUser { get; set; }
 
-    //位置、回転を送信する
+    ////位置、回転を送信する
+    //public Action<pos, rot/*位置、回転*/> OnMoveCharacter { get; set; }
 
     //MagicOnion接続処理
     public async UniTask ConnectAsync()

@@ -63,7 +63,7 @@ namespace Server.StreamingHubs
              *ルーム内のユーザーに位置、回転の変更を送信
              */
         }
-
+        
         ////突然切断した場合
         //protected override ValueTask OnDisconnected()
         //{
