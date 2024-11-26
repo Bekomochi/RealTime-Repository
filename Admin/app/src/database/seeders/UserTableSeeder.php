@@ -17,9 +17,14 @@ class UserTableSeeder extends Seeder
           数値は、生成するレコード数。*/
         //User::factory(20)->create();
 
-        /* User::create([
-             'name' => 'みうら',
-             'password' => 'Fennekin'
-         ]);*/
+        User::create([
+            'name' => 'hoge',
+            'token' => rand()
+        ]);
+
+        User::create([
+            'name' => 'piyo',
+            'token' => rand()
+        ]);
     }
 }

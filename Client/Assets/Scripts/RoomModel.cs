@@ -3,6 +3,7 @@ using Cysharp.Net.Http;
 using Cysharp.Threading.Tasks;
 using Grpc.Net.Client;
 using MagicOnion.Client;
+using Server.Model.Entity;
 using Shared.Interfaces.StreamingHubs;
 using System;
 using System.Collections;
@@ -25,6 +26,9 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     //ユーザー接続通知
     public Action<JoinedUser> OnJoinedUser {  get; set; }//Modelを使うクラスには、Actionを使ってサーバーから届いたデータを渡す
 
+    //ユーザー退室通知
+    public Action<LeavedUser> OnLeavedUser { get; set; }
+
     //MagicOnion接続処理
     public async UniTask ConnectAsync()
     {
@@ -42,28 +46,58 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
         channel = null;
     }
 
-    //破棄処理
+    //破棄処理(アプリ終了など、破棄する段階で切断する)
     async void OnDestroy()
     {
         DisConnectAsync();//破棄する際に接続を切断する
     }
 
+
+    /// <summary>
+    /// 入室処理
+    /// </summary>
+    /// <param name="roomName">入室する部屋の名前</param>
+    /// <param name="userID">ユーザーID</param>
+    /// <returns></returns>
+    
     //入室
     public async UniTask JoinAsync(string roomName, int userID)
     {
-        JoinedUser[] users=await roomHub.JoinAsync(roomName, userID);//RPCServiceの呼び出しと同じ
+        JoinedUser[] users = await roomHub.JoinAsync(roomName, userID);//RPCServiceの呼び出しと同じ
 
-        foreach(var user in users)
+        foreach (var user in users)
         {
             if (user.UserData.Id == userID) this.ConnectionId = user.ConnectionID;//自分の接続IDを保存する
+
             OnJoinedUser(user);//ActionでModelを使うクラスに通知
         }
     }
 
-    //入室通知(IRoomHubReciverインタフェイスの実装)
+    //入室通知(IRoomHubReciverインターフェイスの実装)
     public void OnJoin(JoinedUser user)
     {
         OnJoinedUser.Invoke(user);
+    }
+
+    /// <summary>
+    /// 退室処理
+    /// </summary>
+    /// <param name="roomName">入室する部屋の名前</param>
+    /// <param name="userID">ユーザーID</param>
+    /// <returns></returns>
+
+    //退室
+    public async UniTask LeaveAsync(string roomName, int userID)
+    {
+        LeavedUser user=await roomHub.LeaveAsync(roomName,userID);
+        OnLeavedUser(user);
+    }
+
+    //退室通知
+    public void OnLeave(LeavedUser user)
+    {
+       OnLeavedUser.Invoke(user);
+       OnDestroy();
     }
 
     // Start is called before the first frame update

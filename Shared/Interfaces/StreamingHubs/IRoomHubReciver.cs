@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using MagicOnion;
+using Server.Model.Entity;
 
 namespace Shared.Interfaces.StreamingHubs
 {
@@ -14,5 +15,14 @@ namespace Shared.Interfaces.StreamingHubs
        
         //ユーザーの入室を通知
         void OnJoin(JoinedUser user);
+
+        //ユーザーの退室を通知
+        void OnLeave(LeavedUser user);
+
+        /*OnJoinとOnLeaveどちらにもuserがあるが、
+         *OnJoin>>JoinedUser
+         *OnLeave>>LeavedUser
+         *の内容なので、混合しないように注意
+         */
     }
 }

@@ -1,0 +1,13 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant ClientA
+participant ClientB
+participant MagicOnion
+
+ClientA->MagicOnion:Leave
+ClientB<-MagicOnion:OnLeave
+
+@enduml
