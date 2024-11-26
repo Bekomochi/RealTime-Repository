@@ -11,6 +11,9 @@ namespace Shared.Interfaces.StreamingHubs
     {
         Task<JoinedUser[]>JoinAsync(string roomName,int userId);
 
-        Task<LeavedUser> LeaveAsync(string roomName, int userId);
+        Task<LeavedUser> LeaveAsync();
+
+        //位置、回転をサーバーに送信する
+        //Task MoveAsync(float pos, float rot);
     }
 }

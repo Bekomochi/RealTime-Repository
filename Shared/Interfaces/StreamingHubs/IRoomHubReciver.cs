@@ -19,10 +19,7 @@ namespace Shared.Interfaces.StreamingHubs
         //ユーザーの退室を通知
         void OnLeave(LeavedUser user);
 
-        /*OnJoinとOnLeaveどちらにもuserがあるが、
-         *OnJoin>>JoinedUser
-         *OnLeave>>LeavedUser
-         *の内容なので、混合しないように注意
-         */
+        //位置、回転をクライアントに通知する
+        //void OnMove(/*メッセージパックオブジェクト作成の可能性あり*/);
     }
 }

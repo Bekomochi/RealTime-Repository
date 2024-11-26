@@ -8,6 +8,7 @@ using Shared.Interfaces.StreamingHubs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを継承(実装)
@@ -28,6 +29,8 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
 
     //ユーザー退室通知
     public Action<LeavedUser> OnLeavedUser { get; set; }
+
+    //位置、回転を送信する
 
     //MagicOnion接続処理
     public async UniTask ConnectAsync()
@@ -51,7 +54,6 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     {
         DisConnectAsync();//破棄する際に接続を切断する
     }
-
 
     /// <summary>
     /// 入室処理
@@ -87,17 +89,28 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     /// <returns></returns>
 
     //退室
-    public async UniTask LeaveAsync(string roomName, int userID)
+    public async UniTask LeaveAsync()
     {
-        LeavedUser user=await roomHub.LeaveAsync(roomName,userID);
+        LeavedUser user=await roomHub.LeaveAsync();
         OnLeavedUser(user);
     }
 
     //退室通知
     public void OnLeave(LeavedUser user)
     {
-       OnLeavedUser.Invoke(user);
-       OnDestroy();
+        OnLeavedUser(user);
+    }
+
+    //位置、回転を送信する
+    //public Task MoveAsync(/*不明　後で聞く*/)
+    //{
+    //    /*サーバー関数呼び出し*/
+    //}
+
+    //何か分からない　後で聞く
+    void OnMove(/*接続ID、位置、回転*/)
+    {
+        //OnMoveCharacter(/*接続ID、位置、回転*/);
     }
 
     // Start is called before the first frame update

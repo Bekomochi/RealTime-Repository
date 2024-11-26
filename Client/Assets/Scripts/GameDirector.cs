@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
@@ -12,16 +13,21 @@ public class GameDirector : MonoBehaviour
 {//ゲーム進行を管理するクラス
     [SerializeField] GameObject characterPrefab;
     [SerializeField] RoomModel roomModel;
-    [SerializeField] InputField userIDField;
 
+    //オブジェクトと結びつける
+    public InputField IDinputField;
+    
     Dictionary<Guid, GameObject> characterList = new Dictionary<Guid, GameObject>();//接続IDをキーにして、キャラクターのオブジェクトを管理
 
     // Start is called before the first frame update
     async void Start()
-    {//ユーザーが入室した時にOnJoinedUserメソッドを実行できるように、モデルに登録しておく
-        roomModel.OnJoinedUser += this.OnJoinedUser;
+    {
+        //ユーザーが入/退室した時にOnJoinedUserメソッドを実行できるように、モデルに登録しておく
+        roomModel.OnJoinedUser += this.OnJoinedUser;//入室
+        roomModel.OnLeavedUser += this.OnLeavedUser;//退室
 
-        roomModel.OnLeavedUser += this.OnLeavedUser;
+        //ユーザーIDを入力する入力フィールドをGetComponentする
+        IDinputField = IDinputField.GetComponent<InputField>();
 
         //接続
         await roomModel.ConnectAsync();
@@ -33,8 +39,11 @@ public class GameDirector : MonoBehaviour
 
     public async void JoinRoom()
     {
+        string IDtext = IDinputField.text;
+        int.TryParse(IDtext, out int id);
+
         //入室
-        await roomModel.JoinAsync("SampleRoom", 1);
+        await roomModel.JoinAsync("SampleRoom",id );
         /*ルーム名とユーザーIDを渡して入室する。
          *ユーザーIDは、UIのinputfieldで入力できるようにしたい。
          *最終的には、「ローカルに保存されたUserID」を指定する。
@@ -57,14 +66,31 @@ public class GameDirector : MonoBehaviour
     public async void LeaveRoom()
     {
         //退室
-        await roomModel.LeaveAsync("SampleRoom", 1);
+        await roomModel.LeaveAsync();
     }
 
     //ユーザーが切断した時の処理(切断したらDestroy)
     private void OnLeavedUser(LeavedUser user)
     {//退室したらDestroyする
-        
-        //Destroy(characterList[user.ConnectionID]);
+
+        if (roomModel.ConnectionId == user.ConnectionID)
+        {
+            foreach (var charaList in characterList)
+            {
+                Destroy(charaList.Value);
+            }
+        }
+        else
+        {
+            Destroy(characterList[user.ConnectionID]);
+        }
+    }
+
+    //characterlistから対象のGameobjectを取得
+    void OnMoveCharacter(/*接続ID、位置、回転*/)
+    {
+        //characterlistから対象のGameobjectを取得
+        //位置、回転を反映
     }
 
     // Update is called once per frame

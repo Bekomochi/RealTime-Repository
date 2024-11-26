@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant ClientA
+participant ClientB
+participant MagicOnion
+participant RoomData
+
+ClientA->MagicOnion:Move(A,pos)
+MagicOnion->RoomData:位置更新を保存
+ClientB<-MagicOnion:OnMove(A,pos)
+
+@enduml

@@ -40,9 +40,9 @@ namespace Server.StreamingHubs
         }
         
         //退出
-        public async Task<LeavedUser> LeaveAsync(string roomName, int userId)
+        public async Task<LeavedUser> LeaveAsync()
         {
-            var leavedUser = new LeavedUser();
+            var leavedUser = new LeavedUser() { ConnectionID=this.ConnectionId };
             
             //グループデータから削除
             this.room.GetInMemoryStorage<RoomData>().Remove(this.ConnectionId);
@@ -54,6 +54,14 @@ namespace Server.StreamingHubs
             this.BroadcastExceptSelf(room).OnLeave(leavedUser);
 
             return leavedUser;
+        }
+
+        //位置、回転をクライアントに追加する
+        public async Task MoveAsync(float pos,float rot)
+        {
+            /*グループストレージからRoomDataを取得して、位置と回転を保存
+             *ルーム内のユーザーに位置、回転の変更を送信
+             */
         }
 
         ////突然切断した場合
