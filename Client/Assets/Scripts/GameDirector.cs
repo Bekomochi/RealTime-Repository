@@ -21,6 +21,8 @@ public class GameDirector : MonoBehaviour
     {//ユーザーが入室した時にOnJoinedUserメソッドを実行できるように、モデルに登録しておく
         roomModel.OnJoinedUser += this.OnJoinedUser;
 
+        roomModel.OnLeavedUser += this.OnLeavedUser;
+
         //接続
         await roomModel.ConnectAsync();
     }
@@ -61,13 +63,13 @@ public class GameDirector : MonoBehaviour
     //ユーザーが切断した時の処理(切断したらDestroy)
     private void OnLeavedUser(LeavedUser user)
     {//退室したらDestroyする
-        GameObject chara = GameObject.FindGameObjectWithTag("character");
-        Destroy(chara);
+        
+        //Destroy(characterList[user.ConnectionID]);
     }
 
     // Update is called once per frame
     void Update()
     {
-        roomModel.OnLeavedUser += this.OnLeavedUser;
+
     }
 }
