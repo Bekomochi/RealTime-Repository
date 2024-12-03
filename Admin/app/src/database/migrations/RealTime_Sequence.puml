@@ -4,9 +4,9 @@
 autonumber
 
 participant ClientA
+participant MagicOnion
 participant ClientB
 participant ClientC
-participant MagicOnion
 
 ClientA->MagicOnion:Join(A)
 ClientA<-MagicOnion:Users(A)
