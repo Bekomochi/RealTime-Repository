@@ -4,12 +4,12 @@
 autonumber
 
 participant ClientA
-participant MagicOnion
-participant ClientB
+participant Server
 participant RoomData
+participant ClientB
 
-ClientA->MagicOnion:Move(A,pos)
-MagicOnion->RoomData:位置更新を保存
-ClientB<-MagicOnion:OnMove(A,pos)
+ClientA->Server:移動
+Server->RoomData:位置更新を保存
+ClientB<-Server:Aが移動したことを送信
 
 @enduml

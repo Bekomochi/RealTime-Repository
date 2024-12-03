@@ -4,14 +4,14 @@
 autonumber
 
 participant ClientA
-participant MagicOnion
+participant Server
 participant ClientB
 participant ClientC
 
-ClientA->MagicOnion:Join(A)
-ClientA<-MagicOnion:Users(A)
-ClientB->MagicOnion:Join(B)
-ClientA<-MagicOnion:OnJoin(B)
-ClientB<-MagicOnion:Users(A,B)
+ClientA->Server:Join(A)
+ClientA<-Server:Users(A)
+ClientB->Server:Join(B)
+ClientA<-Server:OnJoin(B)
+ClientB<-Server:Users(A,B)
 
 @enduml

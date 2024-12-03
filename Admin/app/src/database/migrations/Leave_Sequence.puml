@@ -4,10 +4,10 @@
 autonumber
 
 participant ClientA
-participant MagicOnion
+participant Server
 participant ClientB
 
-ClientA->MagicOnion:Leave
-ClientB<-MagicOnion:OnLeave
+ClientA->Server:退出
+ClientB<-Server:退出したことを送信
 
 @enduml
