@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using MagicOnion;
@@ -20,6 +21,6 @@ namespace Shared.Interfaces.StreamingHubs
         void OnLeave(LeavedUser user);
 
         //位置、回転をクライアントに通知する
-        //void OnMove(/*メッセージパックオブジェクト作成の可能性あり*/);
+        void OnMove(MovedUser movedUser);
     }
 }

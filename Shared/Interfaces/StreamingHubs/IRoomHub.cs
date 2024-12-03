@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Shared.Interfaces.StreamingHubs
 {
@@ -14,6 +15,6 @@ namespace Shared.Interfaces.StreamingHubs
         Task<LeavedUser> LeaveAsync();
 
         //位置、回転をサーバーに送信する
-        //Task MoveAsync(float pos, float rot);
+        Task MoveAsync(MovedUser movedUser);
     }
 }

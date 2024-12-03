@@ -5,12 +5,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Mathematics;
+using UnityEditor.MemoryProfiler;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
 
 public class GameDirector : MonoBehaviour
 {//ゲーム進行を管理するクラス
+
     [SerializeField] GameObject characterPrefab;
     [SerializeField] RoomModel roomModel;
 
@@ -22,15 +24,24 @@ public class GameDirector : MonoBehaviour
     // Start is called before the first frame update
     async void Start()
     {
-        //ユーザーが入/退室した時にOnJoinedUserメソッドを実行できるように、モデルに登録しておく
+        //モデルに登録する
         roomModel.OnJoinedUser += this.OnJoinedUser;//入室
         roomModel.OnLeavedUser += this.OnLeavedUser;//退室
+        roomModel.OnMoveCharacter += OnMoveCharacter;//位置同期
+
 
         //ユーザーIDを入力する入力フィールドをGetComponentする
         IDinputField = IDinputField.GetComponent<InputField>();
 
         //接続
         await roomModel.ConnectAsync();
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
     /// <summary>
@@ -56,6 +67,19 @@ public class GameDirector : MonoBehaviour
         GameObject characterObject = Instantiate(characterPrefab);//インスタンス生成
         characterObject.transform.position = new Vector3(0, 0, 0);
         characterList[user.ConnectionID]= characterObject;//フィールドで保持
+
+        if (roomModel.ConnectionId == user.ConnectionID)
+        {
+            //
+            //InvokeRepeatingで定期的に状態を送信
+            //
+
+            //characterObjectからCharacterをGetして、Character内のbool変数isSelfをtrueにする
+            characterObject.GetComponent<Character>().isSelf = true;
+
+            //InvokeRepeatingでMovedUserasyncを定期的に呼び出して状態を更新
+            InvokeRepeating("MovedUserasync", 0.1f,0.1f);
+        }
     }
 
     /// <summary>
@@ -67,6 +91,7 @@ public class GameDirector : MonoBehaviour
     {
         //退室
         await roomModel.LeaveAsync();
+        CancelInvoke();
     }
 
     //ユーザーが切断した時の処理(切断したらDestroy)
@@ -86,16 +111,22 @@ public class GameDirector : MonoBehaviour
         }
     }
 
-    //characterlistから対象のGameobjectを取得
-    void OnMoveCharacter(/*接続ID、位置、回転*/)
+    //位置同期
+    void OnMoveCharacter(MovedUser movedUser)
     {
-        //characterlistから対象のGameobjectを取得
-        //位置、回転を反映
+        //characterListから対象のGameObjectを取得、対象に位置・回転を反映
+        characterList[movedUser.ConnectionID].gameObject.transform.position = movedUser.pos;
+        characterList[movedUser.ConnectionID].gameObject.transform.rotation = movedUser.rot;
     }
 
-    // Update is called once per frame
-    void Update()
+    public async void MovedUserasync()
     {
+        MovedUser movedUser = new MovedUser();
+        movedUser.pos = characterList[roomModel.ConnectionId].gameObject.transform.position;
+        movedUser.rot = characterList[roomModel.ConnectionId].gameObject.transform.rotation;
+        movedUser.ConnectionID = roomModel.ConnectionId;
 
+        //MoveAsync呼び出し
+        await roomModel.MoveAsync(movedUser);
     }
 }

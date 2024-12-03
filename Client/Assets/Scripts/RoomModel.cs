@@ -9,6 +9,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
+using UnityEditor.MemoryProfiler;
 using UnityEngine;
 
 public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを継承(実装)
@@ -25,13 +27,12 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     public Guid ConnectionId { get; private set; }
 
     //ユーザー接続通知
-    public Action<JoinedUser> OnJoinedUser {  get; set; }//Modelを使うクラスには、Actionを使ってサーバーから届いたデータを渡す
+    public Action<JoinedUser> OnJoinedUser { get; set; }//Modelを使うクラスには、Actionを使ってサーバーから届いたデータを渡す
 
     //ユーザー退室通知
     public Action<LeavedUser> OnLeavedUser { get; set; }
 
-    ////位置、回転を送信する
-    //public Action<pos, rot/*位置、回転*/> OnMoveCharacter { get; set; }
+    public Action<MovedUser> OnMoveCharacter { get; set; }
 
     //MagicOnion接続処理
     public async UniTask ConnectAsync()
@@ -56,13 +57,19 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
         DisConnectAsync();//破棄する際に接続を切断する
     }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
     /// <summary>
     /// 入室処理
     /// </summary>
     /// <param name="roomName">入室する部屋の名前</param>
     /// <param name="userID">ユーザーID</param>
     /// <returns></returns>
-    
+
     //入室
     public async UniTask JoinAsync(string roomName, int userID)
     {
@@ -92,7 +99,7 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     //退室
     public async UniTask LeaveAsync()
     {
-        LeavedUser user=await roomHub.LeaveAsync();
+        LeavedUser user = await roomHub.LeaveAsync();
         OnLeavedUser(user);
     }
 
@@ -102,22 +109,21 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
         OnLeavedUser(user);
     }
 
-    //位置、回転を送信する
-    //public Task MoveAsync(/*不明　後で聞く*/)
-    //{
-    //    /*サーバー関数呼び出し*/
-    //}
+    /// <summary>
+    /// 位置同期処理
+    /// </summary>
+    /// <returns></returns>
 
-    //何か分からない　後で聞く
-    void OnMove(/*接続ID、位置、回転*/)
+    //位置、回転を送信する
+    public async Task MoveAsync(MovedUser movedUser)
     {
-        //OnMoveCharacter(/*接続ID、位置、回転*/);
+        //サーバーの関数を呼び出す
+        await roomHub.MoveAsync(movedUser);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void OnMove(MovedUser movedUser)
     {
-        
+        OnMoveCharacter(movedUser);
     }
 
     // Update is called once per frame

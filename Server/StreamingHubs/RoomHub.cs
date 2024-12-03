@@ -2,6 +2,7 @@
 using Server.Model.Context;
 using Server.Model.Entity;
 using Shared.Interfaces.StreamingHubs;
+using UnityEngine;
 
 namespace Server.StreamingHubs
 {
@@ -9,6 +10,7 @@ namespace Server.StreamingHubs
     {
         private IGroup room;
 
+        //入室
         public async Task<JoinedUser[]> JoinAsync(string roomName, int userID)
         {
             //ルームに参加&ルームを保持する
@@ -19,10 +21,10 @@ namespace Server.StreamingHubs
             var user = connect.Users.Where(user => user.Id == userID).First();
 
             //グループストレージにユーザーデータを格納
-            var roomStrage = this.room.GetInMemoryStorage<RoomData>();//ルームには参加者全員が参照可能な共有の保存領域がある(Memory-メモリ)
+            var roomStrage = this.room.GetInMemoryStorage<RoomData>();
             var joinedUser = new JoinedUser() { ConnectionID = this.ConnectionId, UserData = user };
             var roomData = new RoomData() { JoinedUser = joinedUser };
-            roomStrage.Set(this.ConnectionId, roomData);
+            roomStrage.Set(this.ConnectionId, roomData);//接続IDをキーにしてデータを格納
 
             //ルーム参加者全員に、ユーザーの入室通知を送信
             this.BroadcastExceptSelf(room).OnJoin(joinedUser);//自分以外の参加者のOnJoinを呼び出す。Broadcastのみだと自分も含める。
@@ -57,13 +59,20 @@ namespace Server.StreamingHubs
         }
 
         //位置、回転をクライアントに追加する
-        public async Task MoveAsync(float pos,float rot)
+        public async Task MoveAsync(MovedUser movedUser) 
         {
-            /*グループストレージからRoomDataを取得して、位置と回転を保存
-             *ルーム内のユーザーに位置、回転の変更を送信
-             */
+            //グループストレージからRoomDataを取得する
+            var roomStrage = this.room.GetInMemoryStorage<RoomData>();
+            var roomData=roomStrage.Get(this.ConnectionId);
+
+            //位置と回転を、それぞれroomDataに保存
+            roomData.pos=movedUser.pos;
+            roomData.rot=movedUser.rot;
+
+            //ルーム内のユーザーに位置・回転の変更を送信
+            this.BroadcastExceptSelf(room).OnMove(movedUser);
         }
-        
+
         ////突然切断した場合
         //protected override ValueTask OnDisconnected()
         //{
@@ -71,7 +80,6 @@ namespace Server.StreamingHubs
         //    this.room.GetInMemoryStorage<RoomData>().Remove(this.ConnectionId);
 
         //    //退室したことを全メンバーに通知
-        //    //OnLeaveは退出時の関数なので、作るまでエラーになっているが無視
         //    this.Broadcast(room).OnLeave(this.ConnectionId);
 
         //    //ルーム内のメンバーから削除
