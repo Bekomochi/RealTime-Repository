@@ -17,6 +17,6 @@ namespace Shared.Interfaces.StreamingHubs
         //位置、回転をサーバーに送信する
         Task MoveAsync(MovedUser movedUser);
 
-        Task ReadyAsync(Ready ready);
+        Task ReadyAsync();
     }
 }

@@ -47,13 +47,14 @@ namespace MessagePack.Resolvers
 
         static GeneratedResolverGetFormatterHelper()
         {
-            lookup = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(5)
+            lookup = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(6)
             {
                 { typeof(global::Server.Model.Entity.User), 0 },
                 { typeof(global::Shared.Interfaces.Services.Number), 1 },
                 { typeof(global::Shared.Interfaces.StreamingHubs.JoinedUser), 2 },
                 { typeof(global::Shared.Interfaces.StreamingHubs.LeavedUser), 3 },
                 { typeof(global::Shared.Interfaces.StreamingHubs.MovedUser), 4 },
+                { typeof(global::Shared.Interfaces.StreamingHubs.Ready), 5 },
             };
         }
 
@@ -72,6 +73,7 @@ namespace MessagePack.Resolvers
                 case 2: return new MessagePack.Formatters.Shared.Interfaces.StreamingHubs.JoinedUserFormatter();
                 case 3: return new MessagePack.Formatters.Shared.Interfaces.StreamingHubs.LeavedUserFormatter();
                 case 4: return new MessagePack.Formatters.Shared.Interfaces.StreamingHubs.MovedUserFormatter();
+                case 5: return new MessagePack.Formatters.Shared.Interfaces.StreamingHubs.ReadyFormatter();
                 default: return null;
             }
         }
@@ -434,6 +436,32 @@ namespace MessagePack.Formatters.Shared.Interfaces.StreamingHubs
 
             reader.Depth--;
             return ____result;
+        }
+    }
+
+    public sealed class ReadyFormatter : global::MessagePack.Formatters.IMessagePackFormatter<global::Shared.Interfaces.StreamingHubs.Ready>
+    {
+
+        public void Serialize(ref global::MessagePack.MessagePackWriter writer, global::Shared.Interfaces.StreamingHubs.Ready value, global::MessagePack.MessagePackSerializerOptions options)
+        {
+            if (value == null)
+            {
+                writer.WriteNil();
+                return;
+            }
+
+            writer.WriteArrayHeader(0);
+        }
+
+        public global::Shared.Interfaces.StreamingHubs.Ready Deserialize(ref global::MessagePack.MessagePackReader reader, global::MessagePack.MessagePackSerializerOptions options)
+        {
+            if (reader.TryReadNil())
+            {
+                return null;
+            }
+
+            reader.Skip();
+            return new global::Shared.Interfaces.StreamingHubs.Ready();
         }
     }
 

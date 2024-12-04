@@ -27,14 +27,20 @@ namespace Server.StreamingHubs
             roomStrage.Set(this.ConnectionId, roomData);//接続IDをキーにしてデータを格納
 
             //ルーム参加者全員に、ユーザーの入室通知を送信
-            this.BroadcastExceptSelf(room).OnJoin(joinedUser);//自分以外の参加者のOnJoinを呼び出す。Broadcastのみだと自分も含める。
-            RoomData[] roomDataList = roomStrage.AllValues.ToArray<RoomData>();//AllValues.ToArrayで、格納データを配列で取得する。
+            this.BroadcastExceptSelf(room).OnJoin(joinedUser);//自分以外の参加者のOnJoinを呼び出す。Broadcastのみだと自分も含める
+            RoomData[] roomDataList = roomStrage.AllValues.ToArray<RoomData>(); //AllValues.ToArrayで、格納データを配列で取得する
 
             //参加中のユーザー情報を返す
             JoinedUser[] joinUserList = new JoinedUser[roomDataList.Length];
 
+            if(roomDataList.Length>=3)
+            {//ユーザーが3人集まったら
+
+                this.Broadcast(room).OnPreparation(); //準備完了関数を呼ぶ
+            }
+
             for (int i = 0;i< roomDataList.Length ; i++)
-            {
+            {//ユーザーをルームデータに追加
                 joinUserList[i] = roomDataList[i].JoinedUser;
             }
 
@@ -74,7 +80,7 @@ namespace Server.StreamingHubs
         }
 
         //準備完了
-        public async Task ReadyAsync(Ready ready)
+        public async Task ReadyAsync()
         {
             //準備ができたことを、自分のルームデータに保存する
             var roomStrage = this.room.GetInMemoryStorage<RoomData>();
@@ -86,29 +92,26 @@ namespace Server.StreamingHubs
                 roomData.reserveData = true;
             }
 
-            //
             //全員準備できたか判定
-            //
-
-            bool isReady = false;
+            bool isReady = true;
             var roomDataList=roomStrage.AllValues.ToArray<RoomData>();
 
             foreach(var data in roomDataList)
             {//roomDataに保存した準備完了状態を確認
-                isReady = true;
+                if(data.reserveData==false)
+                {
+                    isReady = false;
+                }
             }
 
-            //
             //全員準備完了していたら、全員にゲーム開始を通知
-            //
-
             if (isReady==true)
             {
-                this.BroadcastExceptSelf(room).OnReady(ready);
+                this.Broadcast(room).OnReady();
             }
         }
 
-        ////突然切断した場合
+        //クライアントの切断
         //protected override ValueTask OnDisconnected()
         //{
         //    //ルームデータを削除

@@ -28,7 +28,8 @@ public class GameDirector : MonoBehaviour
         roomModel.OnJoinedUser += this.OnJoinedUser;//入室
         roomModel.OnLeavedUser += this.OnLeavedUser;//退室
         roomModel.OnMoveCharacter += OnMoveCharacter;//位置同期
-        //roomModel.OnStart += OnStart;//ゲーム開始
+        roomModel.OnPreparationUser += this.OnPreparationUser; //準備完了
+        roomModel.OnReadyGame += this.OnReadyGame; //ゲーム開始
 
         //ユーザーIDを入力する入力フィールドをGetComponentする
         IDinputField = IDinputField.GetComponent<InputField>();
@@ -134,4 +135,18 @@ public class GameDirector : MonoBehaviour
         await roomModel.MoveAsync(movedUser);
     }
 
+    public async void OnPreparationUser()
+    {
+        //開始前のカウント
+        //この中でawaitでカウントを進められる
+
+
+
+        await roomModel.ReadyAsync();
+    }
+
+    public void OnReadyGame()
+    {
+        //キャラクターを動かせる状態にする
+    }
 }

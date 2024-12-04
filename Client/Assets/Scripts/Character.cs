@@ -58,5 +58,11 @@ public class Character : MonoBehaviour
                 transform.position -= speed * transform.right * Time.deltaTime;
             }
         }
+
+        if (Input.GetKey(KeyCode.G))
+        {
+            Debug.Log("ゲーム開始！");
+        }
+
     }
 }
