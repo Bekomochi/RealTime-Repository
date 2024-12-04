@@ -22,5 +22,8 @@ namespace Shared.Interfaces.StreamingHubs
 
         //位置、回転をクライアントに通知する
         void OnMove(MovedUser movedUser);
+
+        //ゲーム開始を全員に通知
+        void OnReady(Ready ready);
     }
 }

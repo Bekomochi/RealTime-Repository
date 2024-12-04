@@ -32,7 +32,11 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     //ユーザー退室通知
     public Action<LeavedUser> OnLeavedUser { get; set; }
 
+    //ユーザー移動通知
     public Action<MovedUser> OnMoveCharacter { get; set; }
+
+    //ゲーム開始通知
+    public Action<Ready> OnStart { get; set; }
 
     //MagicOnion接続処理
     public async UniTask ConnectAsync()
@@ -124,6 +128,18 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     public void OnMove(MovedUser movedUser)
     {
         OnMoveCharacter(movedUser);
+    }
+
+    /// <summary>
+    /// ゲーム開始処理
+    /// </summary>
+    /// <param name="ready"></param>
+    /// <returns></returns>
+    
+
+    public async void OnReady(Ready ready)
+    {
+        OnStart(ready);
     }
 
     // Update is called once per frame

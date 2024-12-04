@@ -73,6 +73,41 @@ namespace Server.StreamingHubs
             this.BroadcastExceptSelf(room).OnMove(movedUser);
         }
 
+        //準備完了
+        public async Task ReadyAsync(Ready ready)
+        {
+            //準備ができたことを、自分のルームデータに保存する
+            var roomStrage = this.room.GetInMemoryStorage<RoomData>();
+            var roomData = roomStrage.Get(this.ConnectionId);
+
+            if (roomData != null)
+            {//RoomDataのreserveDataに準備完了を保存する
+
+                roomData.reserveData = true;
+            }
+
+            //
+            //全員準備できたか判定
+            //
+
+            bool isReady = false;
+            var roomDataList=roomStrage.AllValues.ToArray<RoomData>();
+
+            foreach(var data in roomDataList)
+            {//roomDataに保存した準備完了状態を確認
+                isReady = true;
+            }
+
+            //
+            //全員準備完了していたら、全員にゲーム開始を通知
+            //
+
+            if (isReady==true)
+            {
+                this.BroadcastExceptSelf(room).OnReady(ready);
+            }
+        }
+
         ////突然切断した場合
         //protected override ValueTask OnDisconnected()
         //{

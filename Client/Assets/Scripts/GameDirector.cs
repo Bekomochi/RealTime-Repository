@@ -28,7 +28,7 @@ public class GameDirector : MonoBehaviour
         roomModel.OnJoinedUser += this.OnJoinedUser;//入室
         roomModel.OnLeavedUser += this.OnLeavedUser;//退室
         roomModel.OnMoveCharacter += OnMoveCharacter;//位置同期
-
+        //roomModel.OnStart += OnStart;//ゲーム開始
 
         //ユーザーIDを入力する入力フィールドをGetComponentする
         IDinputField = IDinputField.GetComponent<InputField>();
@@ -111,7 +111,11 @@ public class GameDirector : MonoBehaviour
         }
     }
 
-    //位置同期
+
+    /// <summary>
+    /// 位置同期処理
+    /// </summary>
+
     void OnMoveCharacter(MovedUser movedUser)
     {
         //characterListから対象のGameObjectを取得、対象に位置・回転を反映
@@ -129,4 +133,5 @@ public class GameDirector : MonoBehaviour
         //MoveAsync呼び出し
         await roomModel.MoveAsync(movedUser);
     }
+
 }
