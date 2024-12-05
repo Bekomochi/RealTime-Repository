@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &51467567
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1060,7 +1060,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1558435488}
-        m_TargetAssemblyTypeName: GameDirectore, Assembly-CSharp
+        m_TargetAssemblyTypeName: GameDirector, Assembly-CSharp
         m_MethodName: JoinRoom
         m_Mode: 1
         m_Arguments:
@@ -1237,8 +1237,6 @@ MonoBehaviour:
   roomModel: {fileID: 2059738427}
   CountDownText: {fileID: 51467568}
   IDinputField: {fileID: 1051042377}
-  joinBuuton: {fileID: 1136406704}
-  leaveBuuton: {fileID: 856088476}
 --- !u!1 &1723323807
 GameObject:
   m_ObjectHideFlags: 0

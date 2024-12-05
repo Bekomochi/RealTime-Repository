@@ -118,7 +118,6 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     /// <summary>
     /// 位置同期処理
     /// </summary>
-    /// <returns></returns>
 
     //位置、回転を送信する
     public async Task MoveAsync(MovedUser movedUser)

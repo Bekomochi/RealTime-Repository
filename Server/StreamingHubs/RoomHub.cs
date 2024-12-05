@@ -55,11 +55,13 @@ namespace Server.StreamingHubs
             //グループデータから削除
             this.room.GetInMemoryStorage<RoomData>().Remove(this.ConnectionId);
 
+            //退室したことをメンバーに通知
+            this.Broadcast(room).OnLeave(leavedUser);
+
+
             //ルーム内のメンバーから自分を削除
             await room.RemoveAsync(this.Context);
 
-            //退室したことをメンバーに通知
-            this.BroadcastExceptSelf(room).OnLeave(leavedUser);
 
             return leavedUser;
         }

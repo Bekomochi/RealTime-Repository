@@ -15,12 +15,12 @@ public class GameDirector : MonoBehaviour
 
     [SerializeField] GameObject characterPrefab;
     [SerializeField] RoomModel roomModel;
-    [SerializeField] Text CountDownText;
+    [SerializeField] int CountNum=3;
+
+    public Text CountDownText;
 
     //オブジェクトと結びつける
     public InputField IDinputField;
-    //public UnityEngine.UI.Button joinBuuton;
-    //public UnityEngine.UI.Button leaveBuuton;
 
     Dictionary<Guid, GameObject> characterList = new Dictionary<Guid, GameObject>();//接続IDをキーにして、キャラクターのオブジェクトを管理
 
@@ -28,7 +28,7 @@ public class GameDirector : MonoBehaviour
     async void Start()
     {
         //最初はCountDownTextを非表示にする
-
+        CountDownText.gameObject.SetActive(false);
 
         //モデルに登録する
         roomModel.OnJoinedUser += this.OnJoinedUser;//入室
@@ -97,9 +97,10 @@ public class GameDirector : MonoBehaviour
     //退室
     public async void LeaveRoom()
     {
+        CancelInvoke("MovedUserasync");
+
         //退室
-        await roomModel.LeaveAsync();
-        CancelInvoke();
+        await roomModel.LeaveAsync();    
     }
 
     //ユーザーが切断した時の処理(切断したらDestroy)
@@ -147,7 +148,7 @@ public class GameDirector : MonoBehaviour
      //この中でawaitでカウントを進められる//
 
         //3人集まったらCountDownTextを表示して、カウントダウンしていく
-
+        CountDownText.gameObject.SetActive(true); //CountDownTextを表示
 
         //ReadyAsyncを呼び出す
         await roomModel.ReadyAsync();
