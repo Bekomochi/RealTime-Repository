@@ -15,15 +15,21 @@ public class GameDirector : MonoBehaviour
 
     [SerializeField] GameObject characterPrefab;
     [SerializeField] RoomModel roomModel;
+    [SerializeField] Text CountDownText;
 
     //オブジェクトと結びつける
     public InputField IDinputField;
-    
+    //public UnityEngine.UI.Button joinBuuton;
+    //public UnityEngine.UI.Button leaveBuuton;
+
     Dictionary<Guid, GameObject> characterList = new Dictionary<Guid, GameObject>();//接続IDをキーにして、キャラクターのオブジェクトを管理
 
     // Start is called before the first frame update
     async void Start()
     {
+        //最初はCountDownTextを非表示にする
+
+
         //モデルに登録する
         roomModel.OnJoinedUser += this.OnJoinedUser;//入室
         roomModel.OnLeavedUser += this.OnLeavedUser;//退室
@@ -36,6 +42,7 @@ public class GameDirector : MonoBehaviour
 
         //接続
         await roomModel.ConnectAsync();
+
 
     }
 
@@ -136,17 +143,20 @@ public class GameDirector : MonoBehaviour
     }
 
     public async void OnPreparationUser()
-    {
-        //開始前のカウント
-        //この中でawaitでカウントを進められる
+    {//開始前のカウント
+     //この中でawaitでカウントを進められる//
+
+        //3人集まったらCountDownTextを表示して、カウントダウンしていく
 
 
-
+        //ReadyAsyncを呼び出す
         await roomModel.ReadyAsync();
     }
 
     public void OnReadyGame()
     {
         //キャラクターを動かせる状態にする
+
+
     }
 }
