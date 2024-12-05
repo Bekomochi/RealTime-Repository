@@ -15,7 +15,7 @@ public class GameDirector : MonoBehaviour
 
     [SerializeField] GameObject characterPrefab;
     [SerializeField] RoomModel roomModel;
-    [SerializeField] int CountNum=3;
+    [SerializeField] int CountNum=0;
 
     public Text CountDownText;
 
@@ -29,6 +29,9 @@ public class GameDirector : MonoBehaviour
     {
         //最初はCountDownTextを非表示にする
         CountDownText.gameObject.SetActive(false);
+
+        //CountDownTextを時間に反映させる
+        CountDownText.text=CountNum.ToString();
 
         //モデルに登録する
         roomModel.OnJoinedUser += this.OnJoinedUser;//入室
@@ -149,6 +152,8 @@ public class GameDirector : MonoBehaviour
 
         //3人集まったらCountDownTextを表示して、カウントダウンしていく
         CountDownText.gameObject.SetActive(true); //CountDownTextを表示
+
+        
 
         //ReadyAsyncを呼び出す
         await roomModel.ReadyAsync();
