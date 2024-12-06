@@ -15,9 +15,10 @@ public class GameDirector : MonoBehaviour
 
     [SerializeField] GameObject characterPrefab;
     [SerializeField] RoomModel roomModel;
-    [SerializeField] int CountNum=0;
+    [SerializeField] int CountNum;
 
     public Text CountDownText;
+    public Text StartText;
 
     //オブジェクトと結びつける
     public InputField IDinputField;
@@ -30,8 +31,14 @@ public class GameDirector : MonoBehaviour
         //最初はCountDownTextを非表示にする
         CountDownText.gameObject.SetActive(false);
 
-        //CountDownTextを時間に反映させる
-        CountDownText.text=CountNum.ToString();
+        //最初はStartTextを非表示にする
+        StartText.gameObject.SetActive(false);
+
+        //CountDownText周りの設定
+        CountNum = 3; //CountNumを初期化
+        CountDownText.text=CountNum.ToString(); //CountDownTextを時間に反映させる
+
+        //InvokeRepeatingで、1秒ごとにCountDown関数を呼び出す
 
         //モデルに登録する
         roomModel.OnJoinedUser += this.OnJoinedUser;//入室
@@ -45,8 +52,6 @@ public class GameDirector : MonoBehaviour
 
         //接続
         await roomModel.ConnectAsync();
-
-
     }
 
     // Update is called once per frame
@@ -153,16 +158,34 @@ public class GameDirector : MonoBehaviour
         //3人集まったらCountDownTextを表示して、カウントダウンしていく
         CountDownText.gameObject.SetActive(true); //CountDownTextを表示
 
-        
+        InvokeRepeating("CountDown", 1, 1);
 
         //ReadyAsyncを呼び出す
         await roomModel.ReadyAsync();
+
     }
 
     public void OnReadyGame()
     {
         //キャラクターを動かせる状態にする
+    }
 
+    public async Task CountDown()
+    {//カウントダウンする関数
+         CountNum--;
+        CountDownText.text=CountNum.ToString();
+
+        if (CountNum == 0)
+        {
+            //カウントダウンを止める
+            CancelInvoke("CountDown");
+
+            //CountDownTextを非表示
+            CountDownText.gameObject.SetActive(false); 
+
+            //StartTextを表示させる
+            StartText.gameObject.SetActive(true);
+        }
 
     }
 }
