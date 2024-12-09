@@ -113,6 +113,13 @@ namespace Server.StreamingHubs
             }
         }
 
+        //終了
+        public async Task FinishAsync()
+        {
+            //全員にゲーム終了を通知
+            this.Broadcast(room).OnFinish();
+        }
+
         //クライアントの切断
         //protected override ValueTask OnDisconnected()
         //{

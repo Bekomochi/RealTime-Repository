@@ -28,5 +28,8 @@ namespace Shared.Interfaces.StreamingHubs
 
         //ゲーム準備を通知
         void OnPreparation();
+
+        //ゲーム終了を通知
+        void OnFinish();
     }
 }

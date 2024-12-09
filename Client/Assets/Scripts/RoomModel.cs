@@ -41,6 +41,9 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     //ゲーム開始通知
     public Action OnReadyGame {  get; set; }
 
+    //ゲーム終了通知
+     public Action OnFinishGame {  get; set; }
+
     //MagicOnion接続処理
     public async UniTask ConnectAsync()
     {
@@ -148,6 +151,16 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     public async Task ReadyAsync()
     {
         await roomHub.ReadyAsync();
+    }
+
+    public void OnFinish()
+    {
+        OnFinishGame();
+    }
+
+    public async Task FinishAsync()
+    {
+        await roomHub.FinishAsync();
     }
 
     // Update is called once per frame

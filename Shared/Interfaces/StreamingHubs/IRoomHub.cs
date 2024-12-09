@@ -17,6 +17,10 @@ namespace Shared.Interfaces.StreamingHubs
         //位置、回転をサーバーに送信する
         Task MoveAsync(MovedUser movedUser);
 
+        //ゲーム開始をサーバーに送信する
         Task ReadyAsync();
+
+        //ゲーム終了をサーバーに送信する
+        Task FinishAsync();
     }
 }

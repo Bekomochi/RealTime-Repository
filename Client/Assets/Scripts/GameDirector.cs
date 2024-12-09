@@ -16,9 +16,12 @@ public class GameDirector : MonoBehaviour
     [SerializeField] GameObject characterPrefab;
     [SerializeField] RoomModel roomModel;
     [SerializeField] int CountNum;
+    [SerializeField] int MasterTimer;
 
-    public Text CountDownText;
-    public Text StartText;
+    public Text CountDownText; //スタートまでのカウントダウン用のテキスト(3カウント)
+    public Text StartText; //開始用テキスト([Start!!])
+    public Text FinishText; //終了用テキスト([Finish!!])
+    public GameObject FinishButton;//終了用仮ボタン
 
     //オブジェクトと結びつける
     public InputField IDinputField;
@@ -34,6 +37,12 @@ public class GameDirector : MonoBehaviour
         //最初はStartTextを非表示にする
         StartText.gameObject.SetActive(false);
 
+        //最初はFinishTextを非表示にする
+        FinishText.gameObject.SetActive(false);
+
+        //最初はFinishBuutonを非表示にする
+        FinishButton.gameObject.SetActive(false);
+
         //CountDownText周りの設定
         CountNum = 3; //CountNumを初期化
         CountDownText.text=CountNum.ToString(); //CountDownTextを時間に反映させる
@@ -46,6 +55,7 @@ public class GameDirector : MonoBehaviour
         roomModel.OnMoveCharacter += OnMoveCharacter;//位置同期
         roomModel.OnPreparationUser += this.OnPreparationUser; //準備完了
         roomModel.OnReadyGame += this.OnReadyGame; //ゲーム開始
+        roomModel.OnFinishGame += this.OnFinishGame;//ゲーム終了
 
         //ユーザーIDを入力する入力フィールドをGetComponentする
         IDinputField = IDinputField.GetComponent<InputField>();
@@ -105,6 +115,7 @@ public class GameDirector : MonoBehaviour
     //退室
     public async void LeaveRoom()
     {
+        //位置同期の定期的送信を終了する
         CancelInvoke("MovedUserasync");
 
         //退室
@@ -158,11 +169,14 @@ public class GameDirector : MonoBehaviour
         //3人集まったらCountDownTextを表示して、カウントダウンしていく
         CountDownText.gameObject.SetActive(true); //CountDownTextを表示
 
-        InvokeRepeating("CountDown", 1, 1);
+        //1秒ごとにカウントダウン
+        InvokeRepeating("CountDown", 1, 1); 
 
         //ReadyAsyncを呼び出す
         await roomModel.ReadyAsync();
 
+        //FinishBuutonを表示する
+        FinishButton.gameObject.SetActive(true);
     }
 
     public void OnReadyGame()
@@ -186,6 +200,20 @@ public class GameDirector : MonoBehaviour
             //StartTextを表示させる
             StartText.gameObject.SetActive(true);
         }
+    }
 
+    public void OnFinishGame()
+    {//ゲーム終了(ボタンを押して終了するのはアルファ版のみ)
+        //FinishTextを表示する
+        FinishText.gameObject.SetActive(false);
+
+        //StartTextを非表示にする
+        StartText.gameObject.SetActive(false);
+    }
+
+    public async void FinishAsync()
+    {
+        //FinishAsyncを呼び出す
+        await roomModel.FinishAsync();
     }
 }

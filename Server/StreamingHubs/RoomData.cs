@@ -14,5 +14,8 @@ namespace Server.StreamingHubs
 
         //準備完了を保存するbool型変数
         public bool reserveData {  get; set; } 
+
+        //終了判定用の仮のbool変数
+        public bool finishBool {  get; set; }
     }
 }
