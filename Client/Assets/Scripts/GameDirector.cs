@@ -176,17 +176,16 @@ public class GameDirector : MonoBehaviour
         //StartTextを表示させる
         StartText.gameObject.SetActive(true); //タイムラグが発生した時に遅れたユーザーが不利になるので、表示させるタイミングを合わせる
 
-        //1000ms後(1秒後)にStartTextを非表示にする設定
-        await Task.Delay(1000);
-        StartText.gameObject.SetActive(false);
-
-        //FinishBuutonを表示する
-        FinishButton.gameObject.SetActive(true);
-
         //
         //キャラクターを動かせる状態にする
         //
 
+        //1000ms後(1秒後)にStartTextを非表示にする設定
+        await Task.Delay(1000); //以下の処理は1秒後に非表示/表示とする
+        StartText.gameObject.SetActive(false);　//StartTextを非表示にする
+
+        //FinishBuutonを表示する
+        FinishButton.gameObject.SetActive(true);
     }
 
     public async Task CountDown()
@@ -220,6 +219,6 @@ public class GameDirector : MonoBehaviour
         await roomModel.FinishAsync();
 
         //退室
-        LeaveRoom();
+        await roomModel.LeaveAsync();
     }
 }

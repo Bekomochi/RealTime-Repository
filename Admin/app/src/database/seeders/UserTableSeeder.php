@@ -26,5 +26,10 @@ class UserTableSeeder extends Seeder
             'name' => 'piyo',
             'token' => rand()
         ]);
+
+        User::create([
+            'name' => 'fuga',
+            'token' => rand()
+        ]);
     }
 }
