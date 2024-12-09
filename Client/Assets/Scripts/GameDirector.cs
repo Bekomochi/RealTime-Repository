@@ -217,8 +217,5 @@ public class GameDirector : MonoBehaviour
     {//I—¹‚µ‚Ä‘Şº
         //FinishAsync‚ğŒÄ‚Ño‚·
         await roomModel.FinishAsync();
-
-        //‘Şº
-        await roomModel.LeaveAsync();
     }
 }
