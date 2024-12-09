@@ -205,7 +205,7 @@ public class GameDirector : MonoBehaviour
     public void OnFinishGame()
     {//ゲーム終了(ボタンを押して終了するのはアルファ版のみ)
         //FinishTextを表示する
-        FinishText.gameObject.SetActive(false);
+        FinishText.gameObject.SetActive(true);
 
         //StartTextを非表示にする
         StartText.gameObject.SetActive(false);
