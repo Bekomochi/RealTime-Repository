@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Shared.Interfaces.StreamingHubs;
-using UnityEditor.Networking.PlayerConnection;
 
 public class Character : MonoBehaviour
 {
