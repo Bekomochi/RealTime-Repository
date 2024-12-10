@@ -77,7 +77,7 @@ public class GameDirector : MonoBehaviour
         int.TryParse(IDtext, out int id);
 
         //入室
-        await roomModel.JoinAsync("SampleRoom", id);
+        await roomModel.JoinAsync("GameRoom", id);
         /*ルーム名とユーザーIDを渡して入室する。
          *ユーザーIDは、UIのinputfieldで入力できるようにしたい。
          *最終的には、「ローカルに保存されたUserID」を指定する。

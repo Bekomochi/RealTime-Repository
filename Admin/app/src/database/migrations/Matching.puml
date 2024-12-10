@@ -4,18 +4,36 @@
 autonumber
 
 participant ClientA
-participant Server
 participant ClientB
+participant Server
+participant DB
 
-ClientA->Server:残り時間を送信(開始から)
-note left:一番最初に入室した人が\n残り時間をカウントする\nマスタークライアント方式
-ClientB<-Server:残り時間を送信
+ClientA->Server:ロビーに入室
+note over Server:同じマッチング条件の\n人が集まったか判定
 
-ClientA->Server:残り時間を送信(0秒)
-ClientA<-Server:時間切れを通知
-ClientB<-Server:時間切れを通知
+ClientB->Server:ロビーに入室
+ClientA<-Server:入室したことを通知
+note over Server:同じマッチング条件の\n人が集まったか判定。
+note over Server:集まったらルーム名決定
 
-ClientA->Server:退出
-ClientB->Server:退出
+note over ClientA,ClientB:一覧表示を更新
+
+Server->DB:対戦情報を登録する
+note over DB:レコードを追加する
+
+Server<-DB:テーブルのidを送信する
+ClientA<-Server:マッチング完了
+note left:インゲームのルーム名を\nサーバーから受け取る
+ClientB<-Server:マッチング完了
+note left:インゲームのルーム名を\nサーバーから受け取る
+
+ClientA->Server:ロビーから退出
+ClientB->Server:ロビーから退出
+note over ClientB:インゲームのシーンに移動
+
+ClientA->Server:受け取ったルーム名のルームに入室
+ClientB->Server:受け取ったルーム名のルームに入室
+
+note across:インゲーム開始
 
 @enduml
