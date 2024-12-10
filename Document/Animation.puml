@@ -9,9 +9,11 @@ participant ClientB
 
 note across:入室状態
 
+loop
 ClientA->Server:状態を送信
 note left:Aのアニメーション状態を\n定期的に送信
 ClientB<-Server:Aの状態を送信
+end
 
 note left of ClientA:アニメーション状態の送信は、\n位置と同時に送信すると良い
 

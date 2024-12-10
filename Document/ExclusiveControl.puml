@@ -7,4 +7,19 @@ participant ClientA
 participant Server
 participant ClientB
 
+ClientA->Server:入室
+ClientB->Server:入室
+note over Server:全員揃ったか判定
+
+ClientA<-Server:全員揃った
+ClientB<-Server:全員揃った
+
+ClientB->Server:準備完了
+note over Server:全員準備できたか判定
+ClientA->Server:準備完了
+note over Server:全員準備できたか判定
+
+ClientA<-Server:ゲーム開始
+ClientB<-Server:ゲーム開始
+
 @enduml
