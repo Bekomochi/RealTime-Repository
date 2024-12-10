@@ -1,13 +1,9 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-autonumber
-
 participant ClientA
 participant MagicOnion
 participant ClientB
-
-
 
 loop
    ClientB->MagicOnion:移動

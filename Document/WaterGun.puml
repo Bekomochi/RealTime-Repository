@@ -1,12 +1,28 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-autonumber
-
-participant ClientA
+participant Master
 participant Server
-participant ClientB
+participant Client
 
+note over Master:水の発射判定
 
+Master->Server:自分の水鉄砲が水を発射
+Master<-Server:Masterの水鉄砲が水を発射
+note left:発射した水の名前を決める
+Client<-Server:Masterの水鉄砲が水を発射
+
+note over Master:水エフェクトを\n発射して名前を設定
+note over Master:水が他ユーザー\nに当たったら\n自分は何もしない
+
+Master<-Server:Masterの水鉄砲が水を発射
+note left:発射した水の名前を決める
+
+Client->Server:当たった水の名前を送る
+Client<-Server:Clientが他ユーザーの水に当たった
+Client<-Server:Clientが自分の水に当たった
+
+note over Master:水を破棄、\nClientのHPを\n減らす
+note over Master:水を破棄、\nClientのHPを\n減らす
 
 @enduml
