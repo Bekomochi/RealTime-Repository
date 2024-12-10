@@ -47,6 +47,19 @@ namespace Server.StreamingHubs
             return joinUserList;
         }
         
+        //public async Task<JoinedUser[]> JounLobbyAsync(int userID)
+        //{
+        //    JoinedUser[] joinedUserList = await JoinAsync("Lobby", userID);
+
+        //    //同じマッチング条件の人がいたらOnmatchingを呼び出す
+        //    if()
+        //    {
+        //        OnMatching(roomName);
+        //    }
+
+        //    return joinedUser;
+        //}
+
         //退出
         public async Task<LeavedUser> LeaveAsync()
         {
@@ -88,29 +101,48 @@ namespace Server.StreamingHubs
             var roomStrage = this.room.GetInMemoryStorage<RoomData>();
             var roomData = roomStrage.Get(this.ConnectionId);
 
-            if (roomData != null)
-            {//RoomDataのreserveDataに準備完了を保存する
+            lock(roomStrage)
+            {//同時に実行した際、二回通知しないようにロック(排他制御)する
 
-                roomData.reserveData = true;
-            }
+                /* もし同時にアクセスした時に、排他制御をしていないと二回実行してしまう可能性がある。
+                 * 今回の場合だと、二回開始の通知をする可能性がある。
+                 * その対策として[lock]内で処理をすることで、一人ずつ処理を行い、他の人は待機させる。
+                 * 一人目が終わったら、待機していた二人目もlockを取得して、終わったら次の人...という風にして、全員終わったら通知する。
+                 * 複数人が同時に実行しても大丈夫な関数をスレッドセーフという。
+                 * 
+                 * 書き方
+                 * lock(共通の変数)
+                 * {
+                 *   処理
+                 * }
+                 */
 
-            //全員準備できたか判定
-            bool isReady = true;
-            var roomDataList=roomStrage.AllValues.ToArray<RoomData>();
+                if (roomData != null)
+                {//RoomDataのreserveDataに準備完了を保存する
 
-            foreach(var data in roomDataList)
-            {//roomDataに保存した準備完了状態を確認
-                if(data.reserveData==false)
-                {
-                    isReady = false;
+                    roomData.reserveData = true;
                 }
+
+                //全員準備できたか判定
+                bool isReady = true;
+                var roomDataList = roomStrage.AllValues.ToArray<RoomData>();
+
+                foreach (var data in roomDataList)
+                {//roomDataに保存した準備完了状態を確認
+                    if (data.reserveData == false)
+                    {
+                        isReady = false;
+                    }
+                }
+
+                //全員準備完了していたら、全員にゲーム開始を通知
+                if (isReady == true)
+                {
+                    this.Broadcast(room).OnReady();
+                }
+
             }
 
-            //全員準備完了していたら、全員にゲーム開始を通知
-            if (isReady==true)
-            {
-                this.Broadcast(room).OnReady();
-            }
         }
 
         //終了

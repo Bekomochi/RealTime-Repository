@@ -209,7 +209,6 @@ public class GameDirector : MonoBehaviour
     {//ゲーム終了(ボタンを押して終了するのはアルファ版のみ)
         //リザルト画面に移動
         SceneManager.LoadScene("Result");
-
     }
 
     public async void FinishAsync()
