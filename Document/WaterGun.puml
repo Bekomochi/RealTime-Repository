@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant ClientA
+participant Server
+participant ClientB
+
+
+
+@enduml

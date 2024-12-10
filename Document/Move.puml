@@ -4,12 +4,16 @@
 autonumber
 
 participant ClientA
-participant Server
-participant RoomData
+participant MagicOnion
 participant ClientB
 
-ClientA->Server:移動
-Server->RoomData:位置更新を保存
-ClientB<-Server:Aが移動したことを送信
+
+
+loop
+   ClientB->MagicOnion:移動
+   note right:入室後に\n一定間隔で送信
+   note over MagicOnion:位置を更新して、\nRoomDataに保存
+   ClientA<-MagicOnion:Bの移動
+end
 
 @enduml
