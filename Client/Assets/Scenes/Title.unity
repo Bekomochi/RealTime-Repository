@@ -607,7 +607,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30EB\u30FC\u30E0\u3078\u79FB\u52D5"
+  m_Text: "\u30ED\u30D3\u30FC\u3078\u79FB\u52D5"
 --- !u!222 &476649797
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -746,7 +746,7 @@ GameObject:
   - component: {fileID: 1512525118}
   - component: {fileID: 1512525117}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: MatchingButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

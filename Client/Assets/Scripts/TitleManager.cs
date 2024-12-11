@@ -22,6 +22,6 @@ public class TitleManager : MonoBehaviour
 
     public void Transitions()
     {
-        SceneManager.LoadScene("SampleRoom");
+        SceneManager.LoadScene("Lobby");
     }
 }

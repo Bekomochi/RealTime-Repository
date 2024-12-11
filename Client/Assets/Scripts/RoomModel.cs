@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを継承(実装)
 {
@@ -27,6 +28,9 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
 
     //ユーザー接続通知
     public Action<JoinedUser> OnJoinedUser { get; set; }//Modelを使うクラスには、Actionを使ってサーバーから届いたデータを渡す
+
+    //ユーザーマッチング通知
+    public Action<JoinedUser> OnMatchingUser {  get; set; } 
 
     //ユーザー退室通知
     public Action<LeavedUser> OnLeavedUser { get; set; }
@@ -97,6 +101,17 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     {
         OnJoinedUser.Invoke(user);
     }
+
+    ////マッチング
+    //public UniTask MatchingAsync(string roomName, int userID)
+    //{
+    //    MatchingAsync(roomName, userID);
+    //}
+
+    //public void OnMatching(JoinedUser user)
+    //{
+    //    OnMatchingUser.Invoke(user);
+    //}
 
     /// <summary>
     /// 退室処理

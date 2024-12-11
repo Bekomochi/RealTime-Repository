@@ -33,7 +33,7 @@ namespace Server.StreamingHubs
             //参加中のユーザー情報を返す
             JoinedUser[] joinUserList = new JoinedUser[roomDataList.Length];
 
-            if(roomDataList.Length>=3)
+            if (roomDataList.Length >= 3)
             {//ユーザーが3人集まったら
 
                 this.Broadcast(room).OnPreparation(); //準備完了関数を呼ぶ
@@ -46,13 +46,16 @@ namespace Server.StreamingHubs
 
             return joinUserList;
         }
-        
-        //public async Task<JoinedUser[]> JounLobbyAsync(int userID)
-        //{
-        //    JoinedUser[] joinedUserList = await JoinAsync("Lobby", userID);
 
-        //    //同じマッチング条件の人がいたらOnmatchingを呼び出す
-        //    if()
+        ////マッチング
+        //public async Task<JoinedUser[]> JoinLobbyAsync(int userID)
+        //{
+        //    JoinedUser[] joinedUserList = await JoinAsync("Lobby", userID,);
+
+
+        //    /*同じマッチング条件の人がいたらOnmatchingを呼び出す
+        //    12/11現在では、「人数が集まったら」という仮条件にする*/
+        //    if (joinedUserList.Length>3)
         //    {
         //        OnMatching(roomName);
         //    }

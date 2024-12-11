@@ -36,25 +36,26 @@ public class Character : MonoBehaviour
             //‰œ‚ÉˆÚ“®
             if (Input.GetKey(KeyCode.W))
             {
-                transform.position += speed * transform.forward * Time.deltaTime;
+                transform.DOLocalMoveZ(1f, 0.6f).SetRelative();
             }
 
             //è‘O‚ÉˆÚ“®
             if (Input.GetKey(KeyCode.S))
             {
-                transform.position -= speed * transform.forward * Time.deltaTime;
+                transform.DOLocalMoveZ(-1f, 0.6f).SetRelative();
             }
 
             //‰E‚ÉˆÚ“®
             if (Input.GetKey(KeyCode.D))
             {
-                transform.position += speed * transform.right * Time.deltaTime;
+                //transform.position += speed * transform.right * Time.deltaTime;
+                transform.DOLocalMoveX(1f, 0.6f).SetRelative();
             }
 
             //¶‚ÉˆÚ“®
             if (Input.GetKey(KeyCode.A))
             {
-                transform.position -= speed * transform.right * Time.deltaTime;
+                transform.DOLocalMoveX(-1f, 0.6f).SetRelative();
             }
         }
     }

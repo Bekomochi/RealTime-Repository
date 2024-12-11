@@ -17,7 +17,8 @@ namespace Shared.Interfaces.StreamingHubs
         //ユーザーの入室を通知
         void OnJoin(JoinedUser user);
 
-        //void OnMatching(string roomName);
+        //マッチング通知
+        //void OnMatching(string roomName); //ルーム名をクライアントに渡す
 
         //ユーザーの退室を通知
         void OnLeave(LeavedUser user);
