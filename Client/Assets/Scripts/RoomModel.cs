@@ -30,7 +30,7 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     public Action<JoinedUser> OnJoinedUser { get; set; }//Modelを使うクラスには、Actionを使ってサーバーから届いたデータを渡す
 
     //ユーザーマッチング通知
-    public Action<JoinedUser> OnMatchingUser {  get; set; } 
+    public Action<string> OnMatchingUser {  get; set; } 
 
     //ユーザー退室通知
     public Action<LeavedUser> OnLeavedUser { get; set; }
@@ -102,16 +102,16 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
         OnJoinedUser.Invoke(user);
     }
 
-    ////マッチング
-    //public UniTask MatchingAsync(string roomName, int userID)
-    //{
-    //    MatchingAsync(roomName, userID);
-    //}
+    //マッチング
+    public async UniTask MatchingAsync(string roomName, int userID)
+    {
+        await MatchingAsync(roomName, userID);
+    }
 
-    //public void OnMatching(JoinedUser user)
-    //{
-    //    OnMatchingUser.Invoke(user);
-    //}
+    public void OnMatching(string roomName)
+    {
+        OnMatching(roomName);
+    }
 
     /// <summary>
     /// 退室処理

@@ -33,11 +33,11 @@ namespace Server.StreamingHubs
             //参加中のユーザー情報を返す
             JoinedUser[] joinUserList = new JoinedUser[roomDataList.Length];
 
-            if (roomDataList.Length >= 3)
-            {//ユーザーが3人集まったら
+            //if (roomDataList.Length >= 3)
+            //{//ユーザーが3人集まったら
 
-                this.Broadcast(room).OnPreparation(); //準備完了関数を呼ぶ
-            }
+            //    this.Broadcast(room).OnPreparation(); //準備完了関数を呼ぶ
+            //}
 
             for (int i = 0;i< roomDataList.Length ; i++)
             {//ユーザーをルームデータに追加
@@ -47,21 +47,21 @@ namespace Server.StreamingHubs
             return joinUserList;
         }
 
-        ////マッチング
-        //public async Task<JoinedUser[]> JoinLobbyAsync(int userID)
-        //{
-        //    JoinedUser[] joinedUserList = await JoinAsync("Lobby", userID,);
+        //マッチング
+        public async Task<JoinedUser[]> JoinLobbyAsync(int userID)
+        {
+            JoinedUser[] joinedUserList = await JoinAsync("Lobby", userID);
 
 
-        //    /*同じマッチング条件の人がいたらOnmatchingを呼び出す
-        //    12/11現在では、「人数が集まったら」という仮条件にする*/
-        //    if (joinedUserList.Length>3)
-        //    {
-        //        OnMatching(roomName);
-        //    }
+            /*同じマッチング条件の人がいたらOnmatchingを呼び出す
+            12/11時点では、「人数が集まったら」という仮条件にする*/
+            if (joinedUserList.Length >= 3)
+            {
+                this.Broadcast(room).OnMatching(Guid.NewGuid().ToString());
+            }
 
-        //    return joinedUser;
-        //}
+            return joinedUserList;
+        }
 
         //退出
         public async Task<LeavedUser> LeaveAsync()
@@ -77,7 +77,6 @@ namespace Server.StreamingHubs
 
             //ルーム内のメンバーから自分を削除
             await room.RemoveAsync(this.Context);
-
 
             return leavedUser;
         }

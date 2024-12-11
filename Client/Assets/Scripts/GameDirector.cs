@@ -48,6 +48,7 @@ public class GameDirector : MonoBehaviour
 
         //モデルに登録する
         roomModel.OnJoinedUser += this.OnJoinedUser;//入室
+        roomModel.OnMatchingUser += this.OnMatchingUser;//マッチング
         roomModel.OnLeavedUser += this.OnLeavedUser;//退室
         roomModel.OnMoveCharacter += OnMoveCharacter;//位置同期
         roomModel.OnPreparationUser += this.OnPreparationUser; //準備完了
@@ -77,7 +78,7 @@ public class GameDirector : MonoBehaviour
         int.TryParse(IDtext, out int id);
 
         //入室
-        await roomModel.JoinAsync("GameRoom", id);
+        await roomModel.JoinAsync("Lobby", id);
         /*ルーム名とユーザーIDを渡して入室する。
          *ユーザーIDは、UIのinputfieldで入力できるようにしたい。
          *最終的には、「ローカルに保存されたUserID」を指定する。
@@ -103,6 +104,19 @@ public class GameDirector : MonoBehaviour
             //InvokeRepeatingでMovedUserasyncを定期的に呼び出して状態を更新
             InvokeRepeating("MovedUserasync", 0.1f, 0.1f);
         }
+    }
+
+    //マッチング
+
+    public async void MatchingUser(string roomName,int userID)
+    {
+        await roomModel.MatchingAsync(roomName,userID);
+        
+    }
+
+    public void OnMatchingUser(string roomName)
+    {
+        OnMatchingUser(roomName);
     }
 
     /// <summary>
