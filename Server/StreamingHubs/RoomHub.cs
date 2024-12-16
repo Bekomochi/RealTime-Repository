@@ -36,7 +36,8 @@ namespace Server.StreamingHubs
             //if (roomDataList.Length >= 3)
             //{//ユーザーが3人集まったら
 
-            //    this.Broadcast(room).OnPreparation(); //準備完了関数を呼ぶ
+            //    //this.Broadcast(room).OnPreparation(); //準備完了関数を呼ぶ
+
             //}
 
             for (int i = 0;i< roomDataList.Length ; i++)
@@ -52,12 +53,11 @@ namespace Server.StreamingHubs
         {
             JoinedUser[] joinedUserList = await JoinAsync("Lobby", userID);
 
-
             /*同じマッチング条件の人がいたらOnmatchingを呼び出す
             12/11時点では、「人数が集まったら」という仮条件にする*/
             if (joinedUserList.Length >= 3)
             {
-                this.Broadcast(room).OnMatching(Guid.NewGuid().ToString());
+                this.Broadcast(room).OnMatching(Guid.NewGuid().ToString());//ゲームルームに移動、Guid～で部屋名を毎回ランダムに設定
             }
 
             return joinedUserList;

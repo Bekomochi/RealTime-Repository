@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant Unity
+participant RPC
+
+note over Unity:インストール後\n初回起動
+Unity->RPC:ユーザー登録API
+note right:RegistUser
+
+note over RPC:DBに登録
+Unity<-RPC:レスポンス(idで)
+note over Unity:ユーザーIDを保存
+
+@enduml

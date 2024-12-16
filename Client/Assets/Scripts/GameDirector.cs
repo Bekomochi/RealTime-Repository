@@ -21,6 +21,7 @@ public class GameDirector : MonoBehaviour
     public Text CountDownText; //スタートまでのカウントダウン用のテキスト(3カウント)
     public Text StartText; //開始用テキスト([Start!!])
     public GameObject FinishButton;//終了用仮ボタン
+    public GameObject MatchingButton;//マッチング開始ボタン
 
     //オブジェクトと結びつける
     public InputField IDinputField;
@@ -107,15 +108,15 @@ public class GameDirector : MonoBehaviour
     }
 
     //マッチング
-
     public async void MatchingUser(string roomName,int userID)
     {
         await roomModel.MatchingAsync(roomName,userID);
-        
     }
 
     public void OnMatchingUser(string roomName)
     {
+        SceneManager.LoadScene(Guid.NewGuid().ToString());
+
         OnMatchingUser(roomName);
     }
 
