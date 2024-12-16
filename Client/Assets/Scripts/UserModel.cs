@@ -15,6 +15,8 @@ namespace Assets.Scripts
 {
     internal class UserModel : BaseModel
     {
+        int userId;//登録時のユーザーIDを、起動時に読み込む
+
         const string ServerURL = "http://localhost:7000";
         private int userID; //登録ユーザーID
 
@@ -35,5 +37,27 @@ namespace Assets.Scripts
                 return false;
             }
         }
+
+        private static UserModel instance;
+
+        //public static UserModel Instance
+        //{
+        //    /* 読みこんだユーザーIDは、シーンをまたぐと消えてしまう。
+        //     * >>シングルトンにすることで残しておける。
+        //     * ※他のMOdelクラスでも、ゲーム中ずっと残しておくならシングルトンに。
+        //     * APIを呼び出すところはシングルトンにするといいかも？
+        //     */
+        //}
+
+        ////ユーザーIDをローカルファイルに保存する
+        //public void SavedUserData()
+        //{//ユーザー登録時に呼び出す
+        //    /**/
+        //}
+
+        //public bool LoadUserData()
+        //{//起動時に呼び出す
+        //    /**/
+        //}
     }
 }
