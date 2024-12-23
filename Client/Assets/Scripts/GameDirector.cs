@@ -109,14 +109,7 @@ public class GameDirector : MonoBehaviour
             //InvokeRepeatingでMovedUserasyncを定期的に呼び出して状態を更新
             InvokeRepeating("MovedUserasync", 0.1f, 0.1f);
         }
-
     }
-
-    public async void JoindLobbyUser()
-    {
-
-    }
-
 
     /// <summary>
     /// マッチング処理
