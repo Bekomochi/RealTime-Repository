@@ -104,9 +104,9 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
         OnJoinedUser.Invoke(user);
     }
 
-    public async void JoinLobbyAsync(string roomName)
+    public async UniTask LobbyAsync(int userID)
     {
-        await roomHub.JoinLobbyAsync(roomName);
+        await roomHub.JoinLobbyAsync(userID);
     }
 
     //マッチング
