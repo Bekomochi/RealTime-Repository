@@ -21,7 +21,7 @@ public class GameDirector : MonoBehaviour
     public Text CountDownText; //スタートまでのカウントダウン用のテキスト(3カウント)
     public Text StartText; //開始用テキスト([Start!!])
     public GameObject FinishButton;//終了用仮ボタン
-    public GameObject MatchingButton;//マッチング開始ボタン
+    public GameObject MatchingImage; //入室した時の画像
 
     //オブジェクトと結びつける
     public InputField IDinputField;
@@ -41,6 +41,9 @@ public class GameDirector : MonoBehaviour
         //最初はFinishBuutonを非表示にする
         FinishButton.gameObject.SetActive(false);
 
+        //最初はMatchingImageを非表示にする
+        MatchingImage.gameObject.SetActive(false);
+
         //CountDownText周りの設定
         CountNum = 3; //CountNumを初期化
         CountDownText.text = CountNum.ToString(); //CountDownTextを時間に反映させる
@@ -56,8 +59,8 @@ public class GameDirector : MonoBehaviour
         roomModel.OnReadyGame += this.OnReadyGame; //ゲーム開始
         roomModel.OnFinishGame += this.OnFinishGame;//ゲーム終了
 
-        //ユーザーIDを入力する入力フィールドをGetComponentする
-        IDinputField = IDinputField.GetComponent<InputField>();
+        ////ユーザーIDを入力する入力フィールドをGetComponentする
+        //IDinputField = IDinputField.GetComponent<InputField>();
 
         //接続
         await roomModel.ConnectAsync();
@@ -75,7 +78,7 @@ public class GameDirector : MonoBehaviour
 
     public async void JoinRoom()
     {
-        string IDtext = IDinputField.text;
+        string IDtext=IDinputField.text;
         int.TryParse(IDtext, out int id);
 
         //入室
@@ -91,6 +94,7 @@ public class GameDirector : MonoBehaviour
     {//入室したらInstantiateする
         GameObject characterObject = Instantiate(characterPrefab);//インスタンス生成
         characterObject.transform.position = new Vector3(0, 0, 0);
+        
         characterList[user.ConnectionID] = characterObject;//フィールドで保持
 
         if (roomModel.ConnectionId == user.ConnectionID)
@@ -105,9 +109,17 @@ public class GameDirector : MonoBehaviour
             //InvokeRepeatingでMovedUserasyncを定期的に呼び出して状態を更新
             InvokeRepeating("MovedUserasync", 0.1f, 0.1f);
         }
+
     }
 
-    //マッチング
+
+
+    /// <summary>
+    /// マッチング処理
+    /// </summary>
+    /// <param name="roomName">渡す部屋の名前</param>
+    /// <param name="userID">ユーザーのID</param>
+    
     public async void MatchingUser(string roomName,int userID)
     {
         await roomModel.MatchingAsync(roomName,userID);
@@ -117,7 +129,7 @@ public class GameDirector : MonoBehaviour
     {
         SceneManager.LoadScene(Guid.NewGuid().ToString());
 
-        OnMatchingUser(roomName);
+        roomModel.OnMatchingUser(roomName);
     }
 
     /// <summary>
@@ -150,7 +162,6 @@ public class GameDirector : MonoBehaviour
             Destroy(characterList[user.ConnectionID]);
         }
     }
-
 
     /// <summary>
     /// 位置同期処理

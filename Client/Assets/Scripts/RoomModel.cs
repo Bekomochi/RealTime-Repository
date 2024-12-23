@@ -23,14 +23,16 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
      *その為、UIから取得/UIに設定などは、このクラスでは行わない。
      */
 
+    //Modelを使うクラスには、Actionを使ってサーバーから届いたデータを渡す
+
     //接続ID
     public Guid ConnectionId { get; private set; }
 
     //ユーザー接続通知
-    public Action<JoinedUser> OnJoinedUser { get; set; }//Modelを使うクラスには、Actionを使ってサーバーから届いたデータを渡す
+    public Action<JoinedUser> OnJoinedUser { get; set; }
 
     //ユーザーマッチング通知
-    public Action<string> OnMatchingUser {  get; set; } 
+    public Action<string> OnMatchingUser {  get; set; }
 
     //ユーザー退室通知
     public Action<LeavedUser> OnLeavedUser { get; set; }
@@ -102,6 +104,11 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
         OnJoinedUser.Invoke(user);
     }
 
+    public async void JoinLobbyAsync(string roomName)
+    {
+        await roomHub.JoinLobbyAsync(roomName);
+    }
+
     //マッチング
     public async UniTask MatchingAsync(string roomName, int userID)
     {
@@ -110,7 +117,8 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
 
     public void OnMatching(string roomName)
     {
-        OnMatching(roomName);
+        OnMatchingUser(roomName);
+        SceneManager.LoadScene(roomName);
     }
 
     /// <summary>
