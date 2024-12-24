@@ -134,8 +134,8 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     //退室
     public async UniTask LeaveAsync()
     {
-        LeavedUser user = await roomHub.LeaveAsync();
         await DisConnectAsync();
+        LeavedUser user = await roomHub.LeaveAsync();
     }
 
     //退室通知
