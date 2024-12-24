@@ -1411,13 +1411,7 @@ MonoBehaviour:
   characterPrefab: {fileID: 150101197262592414, guid: bb14d5519e0827945adab9f7aa41ef5c,
     type: 3}
   roomModel: {fileID: 2059738427}
-  CountNum: 0
   MasterTimer: 0
-  CountDownText: {fileID: 51467568}
-  StartText: {fileID: 465343416}
-  FinishButton: {fileID: 1888415607}
-  MatchingImage: {fileID: 7762704245834435778, guid: 04d45dc2428ad12419aac4e8adf49f7e,
-    type: 3}
   IDinputField: {fileID: 988823582}
 --- !u!1 &1723323807
 GameObject:
@@ -1653,7 +1647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1888415608
 RectTransform:
   m_ObjectHideFlags: 0

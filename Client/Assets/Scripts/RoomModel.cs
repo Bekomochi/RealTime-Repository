@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを継承(実装)
 {
@@ -106,19 +108,19 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
 
     public async UniTask LobbyAsync(int userID)
     {
-        await roomHub.JoinLobbyAsync(userID);
-    }
+        JoinedUser[] users = await roomHub.JoinLobbyAsync(userID);
 
-    //マッチング
-    public async UniTask MatchingAsync(string roomName, int userID)
-    {
-        await MatchingAsync(roomName, userID);
+        foreach (var user in users)
+        {
+            if (user.UserData.Id == userID) this.ConnectionId = user.ConnectionID;//自分の接続IDを保存する
+
+            OnJoinedUser(user);//ActionでModelを使うクラスに通知
+        }
     }
 
     public void OnMatching(string roomName)
     {
         OnMatchingUser(roomName);
-        SceneManager.LoadScene(roomName);
     }
 
     /// <summary>

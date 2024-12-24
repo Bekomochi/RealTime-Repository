@@ -15,13 +15,13 @@ public class GameDirector : MonoBehaviour
 
     [SerializeField] GameObject characterPrefab;
     [SerializeField] RoomModel roomModel;
-    [SerializeField] int CountNum;
-    [SerializeField] int MasterTimer;
+    //[SerializeField] int MasterTimer;
 
-    public Text CountDownText; //スタートまでのカウントダウン用のテキスト(3カウント)
-    public Text StartText; //開始用テキスト([Start!!])
-    public GameObject FinishButton;//終了用仮ボタン
-    public GameObject MatchingImage; //入室した時の画像
+    private static string roomName;
+    public static string RoomName {  get { return roomName; } }
+
+    private static int id;
+    public static int Id { get { return id; } }
 
     //オブジェクトと結びつける
     public InputField IDinputField;
@@ -32,35 +32,11 @@ public class GameDirector : MonoBehaviour
     // Start is called before the first frame update
     async void Start()
     {
-        //最初はCountDownTextを非表示にする
-        CountDownText.gameObject.SetActive(false);
-
-        //最初はStartTextを非表示にする
-        StartText.gameObject.SetActive(false);
-
-        //最初はFinishBuutonを非表示にする
-        FinishButton.gameObject.SetActive(false);
-
-        //最初はMatchingImageを非表示にする
-        MatchingImage.gameObject.SetActive(false);
-
-        //CountDownText周りの設定
-        CountNum = 3; //CountNumを初期化
-        CountDownText.text = CountNum.ToString(); //CountDownTextを時間に反映させる
-
-        //InvokeRepeatingで、1秒ごとにCountDown関数を呼び出す
-
         //モデルに登録する
         roomModel.OnJoinedUser += this.OnJoinedUser;//入室
         roomModel.OnMatchingUser += this.OnMatchingUser;//マッチング
         roomModel.OnLeavedUser += this.OnLeavedUser;//退室
         roomModel.OnMoveCharacter += OnMoveCharacter;//位置同期
-        roomModel.OnPreparationUser += this.OnPreparationUser; //準備完了
-        roomModel.OnReadyGame += this.OnReadyGame; //ゲーム開始
-        roomModel.OnFinishGame += this.OnFinishGame;//ゲーム終了
-
-        ////ユーザーIDを入力する入力フィールドをGetComponentする
-        //IDinputField = IDinputField.GetComponent<InputField>();
 
         //接続
         await roomModel.ConnectAsync();
@@ -80,11 +56,11 @@ public class GameDirector : MonoBehaviour
     {
         string IDtext=IDinputField.text;
         int.TryParse(IDtext, out int id);
+        GameDirector.id = id;
 
         //入室
         await roomModel.LobbyAsync(id);
         /*ルーム名とユーザーIDを渡して入室する。
-         *ユーザーIDは、UIのinputfieldで入力できるようにしたい。
          *最終的には、「ローカルに保存されたUserID」を指定する。
          */
     }
@@ -97,12 +73,9 @@ public class GameDirector : MonoBehaviour
         
         characterList[user.ConnectionID] = characterObject;//フィールドで保持
 
+        //ルームモデルの接続IDとuserの接続IDが同じだったら
         if (roomModel.ConnectionId == user.ConnectionID)
         {
-            //
-            //InvokeRepeatingで定期的に状態を送信
-            //
-
             //characterObjectからCharacterをGetして、Character内のbool変数isSelfをtrueにする
             characterObject.GetComponent<Character>().isSelf = true;
 
@@ -117,14 +90,11 @@ public class GameDirector : MonoBehaviour
     /// <param name="roomName">渡す部屋の名前</param>
     /// <param name="userID">ユーザーのID</param>
 
-    public async void MatchingUser(string roomName,int userID)
-    {
-        await roomModel.MatchingAsync(roomName,userID);
-    }
-
     public void OnMatchingUser(string roomName)
     {
+        CancelInvoke();//Movedasyncをストップ
         SceneManager.LoadScene("GameRoom");
+        GameDirector.roomName = roomName;
     }
 
     /// <summary>
@@ -180,61 +150,50 @@ public class GameDirector : MonoBehaviour
         await roomModel.MoveAsync(movedUser);
     }
 
-    public async void OnPreparationUser()
-    {//開始前のカウント
-     //この中でawaitでカウントを進められる//
+    //public async void OnPreparationUser()
+    //{//開始前のカウント
+    // //この中でawaitでカウントを進められる//
 
-        //3人集まったらCountDownTextを表示して、カウントダウンしていく
-        CountDownText.gameObject.SetActive(true); //CountDownTextを表示
+    //    //3人集まったらCountDownTextを表示して、カウントダウンしていく
+    //    CountDownText.gameObject.SetActive(true); //CountDownTextを表示
 
-        //1秒ごとにカウントダウン
-        InvokeRepeating("CountDown", 1, 1);
-    }
+    //    //1秒ごとにカウントダウン
+    //    InvokeRepeating("CountDown", 1, 1);
+    //}
 
-    public async void OnReadyGame()
-    {
-        //StartTextを表示させる
-        StartText.gameObject.SetActive(true); //タイムラグが発生した時に遅れたユーザーが不利になるので、表示させるタイミングを合わせる
+    //public async void OnReadyGame()
+    //{
+    //    //StartTextを表示させる
+    //    StartText.gameObject.SetActive(true); //タイムラグが発生した時に遅れたユーザーが不利になるので、表示させるタイミングを合わせる
 
-        //
-        //キャラクターを動かせる状態にする
-        //
+    //    //
+    //    //キャラクターを動かせる状態にする
+    //    //
 
-        //1000ms後(1秒後)にStartTextを非表示にする設定
-        await Task.Delay(1000); //以下の処理は1秒後に非表示/表示とする
-        StartText.gameObject.SetActive(false);　//StartTextを非表示にする
+    //    //1000ms後(1秒後)にStartTextを非表示にする設定
+    //    await Task.Delay(1000); //以下の処理は1秒後に非表示/表示とする
+    //    StartText.gameObject.SetActive(false);　//StartTextを非表示にする
 
-        //FinishBuutonを表示する
-        FinishButton.gameObject.SetActive(true);
-    }
+    //    //FinishBuutonを表示する
+    //    FinishButton.gameObject.SetActive(true);
+    //}
 
-    public async Task CountDown()
-    {//カウントダウンする関数
-        CountNum--;
-        CountDownText.text = CountNum.ToString();
+    //public async Task CountDown()
+    //{//カウントダウンする関数
+    //    CountNum--;
+    //    CountDownText.text = CountNum.ToString();
 
-        if (CountNum == 0)
-        {
-            //カウントダウンを止める
-            CancelInvoke("CountDown");
+    //    if (CountNum == 0)
+    //    {
+    //        //カウントダウンを止める
+    //        CancelInvoke("CountDown");
 
-            //CountDownTextを非表示
-            CountDownText.gameObject.SetActive(false);
+    //        //CountDownTextを非表示
+    //        CountDownText.gameObject.SetActive(false);
 
-            //ReadyAsyncを呼び出す
-            await roomModel.ReadyAsync();
-        }
-    }
+    //        //ReadyAsyncを呼び出す
+    //        await roomModel.ReadyAsync();
+    //    }
+    //}
 
-    public void OnFinishGame()
-    {//ゲーム終了(ボタンを押して終了するのはアルファ版のみ)
-        //リザルト画面に移動
-        SceneManager.LoadScene("Result");
-    }
-
-    public async void FinishAsync()
-    {//終了して退室
-        //FinishAsyncを呼び出す
-        await roomModel.FinishAsync();
-    }
 }
