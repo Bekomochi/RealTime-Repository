@@ -6,9 +6,8 @@ using Shared.Interfaces.StreamingHubs;
 
 public class Character : MonoBehaviour
 {
-    float speed = 3.0f;
-    Rigidbody rb;
-    FloatingJoystick floatingJoystick;
+    //Rigidbody rb;
+    FloatingJoystick floatingJoystick;//スマホ対応用スライドパッド
 
     //自分自身かどうかを判定する変数
     public bool isSelf { get; set; } = false;
@@ -23,14 +22,6 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ////////////////////////////////////
-        //最終的にDOTweenで移動できるようにする//
-        //////////////////////////////////
-
-        //Vector3 move = (Camera.main.transform.forward * floatingJoystick.Vertical + Camera.main.transform.right * floatingJoystick.Horizontal) * speed;
-        //move.y=rb.velocity.y;
-        //rb.velocity = move;
-
         if (isSelf == true)
         {
             //奥に移動

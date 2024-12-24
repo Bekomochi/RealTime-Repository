@@ -92,8 +92,8 @@ public class GameDirector : MonoBehaviour
 
     public void OnMatchingUser(string roomName)
     {
-        CancelInvoke();//Movedasyncをストップ
-        SceneManager.LoadScene("GameRoom");
+        CancelInvoke();//画面遷移のタイミングでInvokeを止める
+        Initiate.Fade("GameRoom",Color.black,1.0f);
         GameDirector.roomName = roomName;
     }
 
@@ -105,7 +105,7 @@ public class GameDirector : MonoBehaviour
     public async void LeaveRoom()
     {
         //位置同期の定期的送信を終了する
-        CancelInvoke("MovedUserasync");
+        CancelInvoke();
 
         //退室
         await roomModel.LeaveAsync();
@@ -149,51 +149,4 @@ public class GameDirector : MonoBehaviour
         //MoveAsync呼び出し
         await roomModel.MoveAsync(movedUser);
     }
-
-    //public async void OnPreparationUser()
-    //{//開始前のカウント
-    // //この中でawaitでカウントを進められる//
-
-    //    //3人集まったらCountDownTextを表示して、カウントダウンしていく
-    //    CountDownText.gameObject.SetActive(true); //CountDownTextを表示
-
-    //    //1秒ごとにカウントダウン
-    //    InvokeRepeating("CountDown", 1, 1);
-    //}
-
-    //public async void OnReadyGame()
-    //{
-    //    //StartTextを表示させる
-    //    StartText.gameObject.SetActive(true); //タイムラグが発生した時に遅れたユーザーが不利になるので、表示させるタイミングを合わせる
-
-    //    //
-    //    //キャラクターを動かせる状態にする
-    //    //
-
-    //    //1000ms後(1秒後)にStartTextを非表示にする設定
-    //    await Task.Delay(1000); //以下の処理は1秒後に非表示/表示とする
-    //    StartText.gameObject.SetActive(false);　//StartTextを非表示にする
-
-    //    //FinishBuutonを表示する
-    //    FinishButton.gameObject.SetActive(true);
-    //}
-
-    //public async Task CountDown()
-    //{//カウントダウンする関数
-    //    CountNum--;
-    //    CountDownText.text = CountNum.ToString();
-
-    //    if (CountNum == 0)
-    //    {
-    //        //カウントダウンを止める
-    //        CancelInvoke("CountDown");
-
-    //        //CountDownTextを非表示
-    //        CountDownText.gameObject.SetActive(false);
-
-    //        //ReadyAsyncを呼び出す
-    //        await roomModel.ReadyAsync();
-    //    }
-    //}
-
 }

@@ -1378,8 +1378,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f3dcd511cab7249b94ae42ace6dd5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CountNum: 3
+  characterPrefab: {fileID: 150101197262592414, guid: bb14d5519e0827945adab9f7aa41ef5c,
+    type: 3}
   roomModel: {fileID: 915507896}
+  CountNum: 3
   CountDownText: {fileID: 578033279}
   StartText: {fileID: 2108201349}
   FinishButton: {fileID: 1316518485}
