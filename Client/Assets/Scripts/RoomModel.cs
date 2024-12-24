@@ -109,6 +109,7 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
 
     public async UniTask LobbyAsync(int userID)
     {
+        await ConnectAsync();
         JoinedUser[] users = await roomHub.JoinLobbyAsync(userID);
 
         foreach (var user in users)
@@ -134,8 +135,8 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     //退室
     public async UniTask LeaveAsync()
     {
-        await DisConnectAsync();
         LeavedUser user = await roomHub.LeaveAsync();
+        await DisConnectAsync();
     }
 
     //退室通知
