@@ -25,14 +25,15 @@ public class GameRoomManager : MonoBehaviour
     void Start()
     {
         roomModel.OnJoinedUser += this.OnJoinedUser;//入室
-        roomModel.OnPreparationUser += this.OnPreparationUser; //準備完了
+        roomModel.OnPreparationUser += this.OnPreparationUser;//準備完了
         roomModel.OnReadyGame += this.OnReadyGame; //ゲーム開始
         roomModel.OnFinishGame += this.OnFinishGame;//ゲーム終了
+        roomModel.OnMoveCharacter += OnMoveCharacter;//位置同期
 
         /* Start関数内で、入室処理を呼び出す。
          * 入室処理内でインスタンス生成がされているので、インスタンス生成は記入しない。
          */
-        JoinRoom();
+        JoinRoom();//下記のJoinRoomを最初から呼び出す
 
         ////
         //CountDownText周りの設定
@@ -131,4 +132,21 @@ public class GameRoomManager : MonoBehaviour
         await roomModel.FinishAsync();
     }
 
+    void OnMoveCharacter(MovedUser movedUser)
+    {
+        //characterListから対象のGameObjectを取得、対象に位置・回転を反映
+        characterList[movedUser.ConnectionID].gameObject.transform.position = movedUser.pos;
+        characterList[movedUser.ConnectionID].gameObject.transform.rotation = movedUser.rot;
+    }
+
+    public async void MovedUserasync()
+    {
+        MovedUser movedUser = new MovedUser();
+        movedUser.pos = characterList[roomModel.ConnectionId].gameObject.transform.position;
+        movedUser.rot = characterList[roomModel.ConnectionId].gameObject.transform.rotation;
+        movedUser.ConnectionID = roomModel.ConnectionId;
+
+        //MoveAsync呼び出し
+        await roomModel.MoveAsync(movedUser);
+    }
 }
