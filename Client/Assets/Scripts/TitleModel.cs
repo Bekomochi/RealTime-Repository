@@ -11,15 +11,9 @@ namespace Assets.Scripts
 {
     internal class TitleModel : BaseModel
     {
-        ////オブジェクトと結びつける
-        //public InputField IDinputField;
-
         public void Start()
         {
-            //    //ユーザーIDを入力する入力フィールドをGetComponentする
-            //    IDinputField = IDinputField.GetComponent<InputField>();
-            //    string IDtext = IDinputField.text;
-            //    int.TryParse(IDtext, out int id);
+
         }
 
         public void Update()
