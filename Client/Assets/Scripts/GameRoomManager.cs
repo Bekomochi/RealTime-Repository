@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Shared.Interfaces.StreamingHubs;
 using System;
 using System.Collections;
@@ -24,7 +25,7 @@ public class GameRoomManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        roomModel.OnJoinedUser += this.OnJoinedUser;//入室
+        //roomModel.OnJoinedUser += this.OnJoinedUser;//入室
         roomModel.OnPreparationUser += this.OnPreparationUser;//準備完了
         roomModel.OnReadyGame += this.OnReadyGame; //ゲーム開始
         roomModel.OnFinishGame += this.OnFinishGame;//ゲーム終了
@@ -51,10 +52,10 @@ public class GameRoomManager : MonoBehaviour
     public async void JoinRoom()
     {
         //入室
-        await roomModel.JoinAsync(GameDirector.RoomName,GameDirector.Id);
+        await roomModel.JoinAsync(GameDirector.RoomName, GameDirector.Id);
         /*ルーム名とユーザーIDを渡して入室する。
-         *最終的には、「ローカルに保存されたUserID」を指定する。
-         */
+        // *最終的には、「ローカルに保存されたUserID」を指定する。
+        // */
     }
 
     private void OnJoinedUser(JoinedUser user)
@@ -134,9 +135,12 @@ public class GameRoomManager : MonoBehaviour
 
     void OnMoveCharacter(MovedUser movedUser)
     {
-        //characterListから対象のGameObjectを取得、対象に位置・回転を反映
-        characterList[movedUser.ConnectionID].gameObject.transform.position = movedUser.pos;
-        characterList[movedUser.ConnectionID].gameObject.transform.rotation = movedUser.rot;
+        //characterListから対象のGameObjectを取得、位置・回転を反映
+        /* 2024/12/25変更
+         * 反映の際、値の代入ではなくDOLocalMoveに変更。こうすることで、自分以外の画面でも滑らかに動いて見える。
+         * 実際に動くスピードは0.6fだが、自分以外の画面だと遅く見えたので、0.3fに設定してある。
+         */
+        characterList[movedUser.ConnectionID].gameObject.transform.DOLocalMove((movedUser.pos), 0.3f);
     }
 
     public async void MovedUserasync()
