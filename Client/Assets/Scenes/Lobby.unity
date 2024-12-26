@@ -1496,7 +1496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f068cdb6c1390774da3a8fc1a31ac844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 150101197262592414, guid: bb14d5519e0827945adab9f7aa41ef5c,
+  characterPrefab: {fileID: 1806311862713996, guid: 5199b6027ecee354d869db2a78ef3509,
     type: 3}
   roomModel: {fileID: 2059738427}
   IDinputField: {fileID: 988823582}
