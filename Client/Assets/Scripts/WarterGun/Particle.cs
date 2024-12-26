@@ -5,7 +5,6 @@ using static UnityEngine.ParticleSystem;
 
 public class Particle : MonoBehaviour
 {//水鉄砲のパーティクル用のスクリプト
- //参考:https://prupru-prune.hatenablog.com/entry/2022/02/12/003726
 
     [SerializeField] private ParticleSystem warterParticle;
 
@@ -22,12 +21,11 @@ public class Particle : MonoBehaviour
     }
 
     /// <summary>
-    /// 水が当たった時に時にHPを減らす
+    /// 水の当たり判定
     /// </summary>
 
-    public void ShotWarter()
-    {//引数としてキャラクターを受け取り、キャラクターのHPを減らす
-     //後ほど攻撃処理と同時に実装
-        warterParticle.Play();
-    }
+    //public void hitWarter()
+    //{
+
+    //}
 }

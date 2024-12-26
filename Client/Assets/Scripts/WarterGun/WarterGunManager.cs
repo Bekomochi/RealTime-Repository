@@ -5,27 +5,30 @@ using static UnityEngine.ParticleSystem;
 
 public class WarterGunManager : MonoBehaviour
 {//水鉄砲用のスクリプト
- //参考:https://prupru-prune.hatenablog.com/entry/2022/02/12/003726
 
-    //[SerializeField] private ParticleSystem warterParticle;
+    [SerializeField] private ParticleSystem warterParticle;
 
-    //void Start()
-    //{
+    void Start()
+    {
 
-    //}
+    }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     /// <summary>
     /// 水を発射する処理
     /// </summary>
 
-    //public void WarterShot()
-    //{
-    //    warterParticle.Play();
-    //}
+    /* 後ほど、水が当たった時にダメージを与える処理を追加
+     * 当たり判定自体はパーティクルのスクリプトから引用？
+     */
+
+    public void ShotWarter()
+    {//ボタンを押して水を噴射する為の、クリック時に使う関数
+        warterParticle.Play();
+    }
 }
