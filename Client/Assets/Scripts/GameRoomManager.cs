@@ -25,7 +25,8 @@ public class GameRoomManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //roomModel.OnJoinedUser += this.OnJoinedUser;//入室
+        //モデルに登録する
+        roomModel.OnJoinedUser += this.OnJoinedUser;//入室
         roomModel.OnPreparationUser += this.OnPreparationUser;//準備完了
         roomModel.OnReadyGame += this.OnReadyGame; //ゲーム開始
         roomModel.OnFinishGame += this.OnFinishGame;//ゲーム終了
