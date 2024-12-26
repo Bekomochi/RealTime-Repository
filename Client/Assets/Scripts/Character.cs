@@ -27,6 +27,7 @@ public class Character : MonoBehaviour
     {
         if (isSelf == true)
         {
+
             //奥に移動
             if (Input.GetKey(KeyCode.W))
             {
@@ -34,7 +35,6 @@ public class Character : MonoBehaviour
                 animator.SetFloat("speed", speed);//移動した時、speed秒の速さでステータスが"speed"のものをアニメーションする
 
                 transform.DOLocalMoveZ(1f, speed).SetRelative();
-
             }
 
             //手前に移動
@@ -58,6 +58,9 @@ public class Character : MonoBehaviour
             //左に移動
             if (Input.GetKey(KeyCode.A))
             {
+                //速度設定
+                animator.SetFloat("speed", speed);//移動した時、speed秒の速さでステータスが"speed"のものをアニメーションする
+
                 transform.DOLocalMoveX(-1f, speed).SetRelative();
             }
         }
