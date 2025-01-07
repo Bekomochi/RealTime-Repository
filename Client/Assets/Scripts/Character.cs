@@ -6,18 +6,18 @@ using Shared.Interfaces.StreamingHubs;
 
 public class Character : MonoBehaviour
 {
-    FloatingJoystick floatingJoystick;//スマホ対応用スライドパッド
+    //FloatingJoystick floatingJoystick;//スマホ対応用スライドパッド
     float speed = 0.6f;//歩くスピードの変数。0.6fに設定
-    Animator animator;
-
-    //自分自身かどうかを判定する変数
-    public bool isSelf { get; set; } = false;
+    public static int HP = 100;//キャラクターの体力。適宜調整
+    public bool isSelf { get; set; } = false;//自分自身かどうかを判定する変数
+    Animator animator;//アニメーター取得
+    public static BoxCollider boxCollider;//キャラクターのBoxColliderの変数
 
     // Start is called before the first frame update
     void Start()
     {
-        Rigidbody rigidbody = GetComponent<Rigidbody>();
-        animator=GetComponent<Animator>();
+        boxCollider = GetComponent<BoxCollider>();//BoxColliderを取得
+        animator = GetComponent<Animator>();
 
         //floatingJoystick=GameObject.Find(/*"名前"*/).GetComponent<FloatingJoystick>();
     }
@@ -27,7 +27,6 @@ public class Character : MonoBehaviour
     {
         if (isSelf == true)
         {
-
             //奥に移動
             if (Input.GetKey(KeyCode.W))
             {
