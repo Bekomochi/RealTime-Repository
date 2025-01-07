@@ -134,7 +134,8 @@ public class GameDirector : MonoBehaviour
     /// </summary>
 
     void OnMoveCharacter(MovedUser movedUser)
-    {
+    {//MovedUserクラスに接続ID、位置、回転の情報が入っている
+
         //characterListから対象のGameObjectを取得、位置・回転を反映
         /* 2024/12/25変更
          * 反映の際、値の代入ではなくDOLocalMoveに変更。こうすることで、自分以外の画面でも滑らかに動いて見える。

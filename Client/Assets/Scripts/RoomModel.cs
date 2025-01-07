@@ -157,7 +157,7 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     }
 
     public void OnMove(MovedUser movedUser)
-    {
+    {//MovedUserクラスに接続ID、位置、回転の情報が入っている
         OnMoveCharacter(movedUser);
     }
 
