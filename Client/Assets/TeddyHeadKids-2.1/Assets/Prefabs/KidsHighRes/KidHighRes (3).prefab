@@ -2830,11 +2830,11 @@ GameObject:
   - component: {fileID: 4445352718438402}
   - component: {fileID: 95637966995331456}
   - component: {fileID: 5079566609070299517}
-  - component: {fileID: 3756652427179409584}
   - component: {fileID: -6354535414722497813}
+  - component: {fileID: -5081822883857988059}
   m_Layer: 0
   m_Name: KidHighRes (3)
-  m_TagString: Untagged
+  m_TagString: character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2893,7 +2893,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a184f3eb5877e3f4a835a3a9680071a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &3756652427179409584
+--- !u!65 &-6354535414722497813
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806311862713996}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5134302, y: 7.5027766, z: 1.3324038}
+  m_Center: {x: -0.06338698, y: 3.7617095, z: 0.16620195}
+--- !u!54 &-5081822883857988059
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2918,29 +2939,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 1
---- !u!65 &-6354535414722497813
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806311862713996}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.5134302, y: 7.5027766, z: 1.3324038}
-  m_Center: {x: -0.06338698, y: 3.7617095, z: 0.16620195}
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &1810848682169382
 GameObject:
   m_ObjectHideFlags: 0

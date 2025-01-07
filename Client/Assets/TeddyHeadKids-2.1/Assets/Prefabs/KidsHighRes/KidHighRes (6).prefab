@@ -3084,7 +3084,7 @@ GameObject:
   - component: {fileID: 95873191589847898}
   m_Layer: 0
   m_Name: KidHighRes (6)
-  m_TagString: Untagged
+  m_TagString: character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
