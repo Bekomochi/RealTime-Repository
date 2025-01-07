@@ -55,7 +55,7 @@ namespace Server.StreamingHubs
 
             /*同じマッチング条件の人がいたらOnmatchingを呼び出す
             12/11時点では、「人数が集まったら」という仮条件にする*/
-            if (joinedUserList.Length >= 2)
+            if (joinedUserList.Length >= 3)
             {
                 this.Broadcast(room).OnMatching(Guid.NewGuid().ToString());//ゲームルームに移動、Guid～で部屋名を毎回ランダムに設定
             }
@@ -92,8 +92,8 @@ namespace Server.StreamingHubs
             roomData.pos=movedUser.pos;
             roomData.rot=movedUser.rot;
 
-            //ルーム内のユーザーに位置・回転の変更を送信
-            this.BroadcastExceptSelf(room).OnMove(movedUser);
+            //ルーム内の他ユーザーに位置・回転の変更を送信
+            this.BroadcastExceptSelf(room).OnMove(movedUser);//BroadcastExceptSelfで自分以外に送信
         }
 
         //準備完了

@@ -17,7 +17,7 @@ namespace Shared.Interfaces.StreamingHubs
         Task<LeavedUser> LeaveAsync();
 
         //位置、回転をサーバーに送信する
-        Task MoveAsync(MovedUser movedUser);
+        Task MoveAsync(MovedUser movedUser);//MovedUserクラスに接続ID、位置、回転の情報が入っている
 
         //ゲーム開始をサーバーに送信する
         Task ReadyAsync();

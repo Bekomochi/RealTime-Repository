@@ -24,7 +24,7 @@ namespace Shared.Interfaces.StreamingHubs
         void OnLeave(LeavedUser user);
 
         //位置、回転をクライアントに通知する
-        void OnMove(MovedUser movedUser);
+        void OnMove(MovedUser movedUser);//MovedUserクラスに接続ID、位置、回転の情報が入っている
 
         //ゲーム開始を全員に通知
         void OnReady();
