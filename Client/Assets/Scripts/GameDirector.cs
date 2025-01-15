@@ -40,7 +40,7 @@ public class GameDirector : MonoBehaviour
         roomModel.OnMatchingUser += this.OnMatchingUser;//マッチング
         roomModel.OnLeavedUser += this.OnLeavedUser;//退室
         roomModel.OnMoveCharacter += OnMoveCharacter;//位置同期
-        //roomModel.OnHPValue += OnHPValue;
+        //roomModel.OnValue += OnHPValue;
         //接続
         await roomModel.ConnectAsync();
     }
@@ -162,13 +162,13 @@ public class GameDirector : MonoBehaviour
     /// HP更新処理
     /// </summary>
 
-    //public void OnHPValue()
+    //public void OnHPValue(int hp)
     //{
-    //    CharacterHP -= 10;
+    //    CharacterHP=hp;
     //}
 
-    //public async void HPValueAsync(int hp)
-    //{
-    //    await roomModel.HPValueAsync(hp);
-    //}
+    public async void HPValueAsync(int hp)
+    {
+        await roomModel.HPValueAsync(hp);
+    }
 }

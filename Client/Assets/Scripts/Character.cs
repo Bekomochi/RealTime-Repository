@@ -9,6 +9,8 @@ using UnityEngine.TextCore.Text;
 public class Character : MonoBehaviour
 {
     [SerializeField] public Slider HPSlider;
+    RoomModel roomModel;
+
     public static int CharacterHP = 100;//キャラクターの体力。適宜調整
 
     //FloatingJoystick floatingJoystick;//スマホ対応用スライドパッド
@@ -19,8 +21,11 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject.Find("RoomModel");
+
         animator = GetComponent<Animator>();
         HPSlider.maxValue = CharacterHP;
+        roomModel.OnValue += OnHPValue;
 
         //floatingJoystick=GameObject.Find(/*"名前"*/).GetComponent<FloatingJoystick>();
     }
@@ -72,7 +77,7 @@ public class Character : MonoBehaviour
     {
         if (other.tag == "warter")
         {
-            //CharacterHP -= 10;//水が当たったら、HPを10減らす
+            CharacterHP -= 10;//水が当たったら、HPを10減らす
             HPSlider.value = CharacterHP;
 
             if (CharacterHP <= 0)
@@ -81,4 +86,10 @@ public class Character : MonoBehaviour
             }
         }
     }
+
+    public void OnHPValue(int hp)
+    {
+        CharacterHP = hp;
+    }
+
 }

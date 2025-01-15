@@ -155,11 +155,11 @@ namespace Server.StreamingHubs
             this.Broadcast(room).OnFinish();
         }
 
-        //public async Task HPValueAsync(int hp)
-        //{
-        //    //自分以外にHPの更新を通知
-        //    this.BroadcastExceptSelf(room).OnHPValue(hp);
-        //}
+        public async Task HPValueAsync(int hp)
+        {
+            //自分以外にHPの更新を通知
+            this.BroadcastExceptSelf(room).OnHPValue(hp);
+        }
 
         //クライアントの切断
         //protected override ValueTask OnDisconnected()

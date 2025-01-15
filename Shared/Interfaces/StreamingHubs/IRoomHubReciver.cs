@@ -35,7 +35,7 @@ namespace Shared.Interfaces.StreamingHubs
         //ゲーム終了を通知
         void OnFinish();
 
-        ////HPの更新を通知
-        //void OnHPValue();
+        //HPの更新を通知
+        void OnHPValue(int hp);
     }
 }

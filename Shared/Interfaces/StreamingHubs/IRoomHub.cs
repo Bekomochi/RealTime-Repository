@@ -25,7 +25,7 @@ namespace Shared.Interfaces.StreamingHubs
         //ゲーム終了をサーバーに送信する
         Task FinishAsync();
 
-        ////HPの更新をサーバーに送信する
-        //Task HPValueAsync(int hp);
+        //HPの更新をサーバーに送信する
+        Task HPValueAsync(int hp);
     }
 }
