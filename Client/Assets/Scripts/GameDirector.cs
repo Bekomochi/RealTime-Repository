@@ -16,7 +16,6 @@ public class GameDirector : MonoBehaviour
 
     [SerializeField] GameObject characterPrefab;
     [SerializeField] RoomModel roomModel;
-    //[SerializeField] int MasterTimer;
 
     private static string roomName;
     public static string RoomName {  get { return roomName; } }
@@ -24,8 +23,11 @@ public class GameDirector : MonoBehaviour
     private static int id;
     public static int Id { get { return id; } }
 
+
     //オブジェクトと結びつける
     public InputField IDinputField;
+    public GameObject LoseText;
+    int CharacterHP = Character.CharacterHP;
 
     //接続IDをキーにして、キャラクターのオブジェクトを管理
     Dictionary<Guid, GameObject> characterList = new Dictionary<Guid, GameObject>();
@@ -38,7 +40,7 @@ public class GameDirector : MonoBehaviour
         roomModel.OnMatchingUser += this.OnMatchingUser;//マッチング
         roomModel.OnLeavedUser += this.OnLeavedUser;//退室
         roomModel.OnMoveCharacter += OnMoveCharacter;//位置同期
-
+        //roomModel.OnHPValue += OnHPValue;
         //接続
         await roomModel.ConnectAsync();
     }
@@ -155,4 +157,18 @@ public class GameDirector : MonoBehaviour
         //MoveAsync呼び出し
         await roomModel.MoveAsync(movedUser);
     }
+
+    /// <summary>
+    /// HP更新処理
+    /// </summary>
+
+    //public void OnHPValue()
+    //{
+    //    CharacterHP -= 10;
+    //}
+
+    //public async void HPValueAsync(int hp)
+    //{
+    //    await roomModel.HPValueAsync(hp);
+    //}
 }

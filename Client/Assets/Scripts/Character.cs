@@ -9,19 +9,18 @@ using UnityEngine.TextCore.Text;
 public class Character : MonoBehaviour
 {
     [SerializeField] public Slider HPSlider;
-    [SerializeField] int CharacterHP = 100;//キャラクターの体力。適宜調整
+    public static int CharacterHP = 100;//キャラクターの体力。適宜調整
 
     //FloatingJoystick floatingJoystick;//スマホ対応用スライドパッド
     float speed = 0.6f;//歩くスピードの変数。0.6fに設定
     public bool isSelf { get; set; } = false;//自分自身かどうかを判定する変数
     Animator animator;//アニメーター取得
-    public static BoxCollider boxCollider;//キャラクターのBoxColliderの変数
 
     // Start is called before the first frame update
     void Start()
     {
-        boxCollider = GetComponent<BoxCollider>();//BoxColliderを取得
         animator = GetComponent<Animator>();
+        HPSlider.maxValue = CharacterHP;
 
         //floatingJoystick=GameObject.Find(/*"名前"*/).GetComponent<FloatingJoystick>();
     }
@@ -73,13 +72,12 @@ public class Character : MonoBehaviour
     {
         if (other.tag == "warter")
         {
-            CharacterHP -= 10;//水が当たったら、HPを10減らす
+            //CharacterHP -= 10;//水が当たったら、HPを10減らす
             HPSlider.value = CharacterHP;
-            Debug.Log(CharacterHP);
 
             if (CharacterHP <= 0)
             {//キャラクターのHPが0以下になったら
-                CharacterHP = 0;//キャラクターのHPを0固定にする
+                CharacterHP= 0;
             }
         }
     }

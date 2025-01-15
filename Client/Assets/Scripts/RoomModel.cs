@@ -49,7 +49,10 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     public Action OnReadyGame {  get; set; }
 
     //ゲーム終了通知
-     public Action OnFinishGame {  get; set; }
+    public Action OnFinishGame {  get; set; }
+
+    //HP更新通知
+    public Action OnHPValue { get; set; }
 
     //MagicOnion接続処理
     public async UniTask ConnectAsync()
@@ -189,6 +192,22 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     {
         await roomHub.FinishAsync();
     }
+
+    /// <summary>
+    /// HP更新処理
+    /// </summary>
+    /// <param name="hp">HPの引数</param>
+    /// <returns></returns>
+
+    //public async Task HPValueAsync(int hp)
+    //{//HP更新
+    //    await roomHub.HPValueAsync(hp);
+    //}
+
+    //public void OnValue()
+    //{
+    //    OnHPValue();
+    //}
 
     // Update is called once per frame
     void Update()

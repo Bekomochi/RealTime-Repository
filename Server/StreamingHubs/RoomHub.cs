@@ -106,7 +106,8 @@ namespace Server.StreamingHubs
             lock(roomStrage)
             {//同時に実行した際、二回通知しないようにロック(排他制御)する
 
-                /* もし同時にアクセスした時に、排他制御をしていないと二回実行してしまう可能性がある。
+                /* 排他制御
+                 * もし同時にアクセスした時に、排他制御をしていないと二回実行してしまう可能性がある。
                  * 今回の場合だと、二回開始の通知をする可能性がある。
                  * その対策として[lock]内で処理をすることで、一人ずつ処理を行い、他の人は待機させる。
                  * 一人目が終わったら、待機していた二人目もlockを取得して、終わったら次の人...という風にして、全員終わったら通知する。
@@ -153,6 +154,12 @@ namespace Server.StreamingHubs
             //全員にゲーム終了を通知
             this.Broadcast(room).OnFinish();
         }
+
+        //public async Task HPValueAsync(int hp)
+        //{
+        //    //自分以外にHPの更新を通知
+        //    this.BroadcastExceptSelf(room).OnHPValue(hp);
+        //}
 
         //クライアントの切断
         //protected override ValueTask OnDisconnected()

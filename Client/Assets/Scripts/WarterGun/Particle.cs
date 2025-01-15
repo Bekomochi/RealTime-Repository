@@ -10,7 +10,6 @@ public class Particle : MonoBehaviour
 {//水鉄砲のパーティクル用のスクリプト
 
     [SerializeField] private ParticleSystem warterParticle;
-    private float invincibilityTimer = 0.0f;//経過時間を格納するタイマー変数(初期値0秒)
 
     // Start is called before the first frame update
     void Start()
