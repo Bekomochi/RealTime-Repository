@@ -74,7 +74,6 @@ namespace Server.StreamingHubs
             //退室したことをメンバーに通知
             this.Broadcast(room).OnLeave(leavedUser);
 
-
             //ルーム内のメンバーから自分を削除
             await room.RemoveAsync(this.Context);
 
@@ -82,15 +81,17 @@ namespace Server.StreamingHubs
         }
 
         //位置、回転をクライアントに追加する
-        public async Task MoveAsync(MovedUser movedUser) 
+        public async Task MoveAsync(MovedUser movedUser)
         {
             //グループストレージからRoomDataを取得する
             var roomStrage = this.room.GetInMemoryStorage<RoomData>();
-            var roomData=roomStrage.Get(this.ConnectionId);
+            var roomData = roomStrage.Get(this.ConnectionId);
+
 
             //位置と回転を、それぞれroomDataに保存
-            roomData.pos=movedUser.pos;
-            roomData.rot=movedUser.rot;
+            roomData.pos = movedUser.pos;
+            roomData.rot = movedUser.rot;
+
 
             //ルーム内の他ユーザーに位置・回転の変更を送信
             this.BroadcastExceptSelf(room).OnMove(movedUser);//BroadcastExceptSelfで自分以外に送信
@@ -161,7 +162,7 @@ namespace Server.StreamingHubs
             this.BroadcastExceptSelf(room).OnHPValue(hp);
         }
 
-        //クライアントの切断
+        ////クライアントの切断
         //protected override ValueTask OnDisconnected()
         //{
         //    //ルームデータを削除

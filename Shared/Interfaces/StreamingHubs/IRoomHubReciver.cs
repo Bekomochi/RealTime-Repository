@@ -23,8 +23,17 @@ namespace Shared.Interfaces.StreamingHubs
         //ユーザーの退室を通知
         void OnLeave(LeavedUser user);
 
-        //位置、回転をクライアントに通知する
-        void OnMove(MovedUser movedUser);//MovedUserクラスに接続ID、位置、回転の情報が入っている
+        //public enum CharacterState
+        //{
+        //    Idle=0,
+        //    Walk=1,
+        //    Attack=2
+        //}
+
+        //位置、回転、状態をクライアントに通知する
+        void OnMove(MovedUser movedUser/*,CharacterState state*/);//MovedUserクラスに接続ID、位置、回転の情報が入っている
+
+        //アニメーターのstateを、列挙型で定義
 
         //ゲーム開始を全員に通知
         void OnReady();

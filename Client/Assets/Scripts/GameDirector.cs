@@ -27,7 +27,6 @@ public class GameDirector : MonoBehaviour
     //オブジェクトと結びつける
     public InputField IDinputField;
     public GameObject LoseText;
-    int CharacterHP = Character.CharacterHP;
 
     //接続IDをキーにして、キャラクターのオブジェクトを管理
     Dictionary<Guid, GameObject> characterList = new Dictionary<Guid, GameObject>();
@@ -167,8 +166,8 @@ public class GameDirector : MonoBehaviour
     //    CharacterHP=hp;
     //}
 
-    public async void HPValueAsync(int hp)
-    {
-        await roomModel.HPValueAsync(hp);
-    }
+    //public async void HPValueAsync(int hp)
+    //{
+    //    await roomModel.HPValueAsync(hp);
+    //}
 }

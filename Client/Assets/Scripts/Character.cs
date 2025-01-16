@@ -21,7 +21,7 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject.Find("RoomModel");
+        roomModel= GameObject.Find("RoomModel").GetComponent<RoomModel>();
 
         animator = GetComponent<Animator>();
         HPSlider.maxValue = CharacterHP;
@@ -38,17 +38,21 @@ public class Character : MonoBehaviour
             //奥に移動
             if (Input.GetKey(KeyCode.W))
             {
-                //速度設定
-                animator.SetFloat("speed", speed);//移動した時、speed秒の速さでステータスが"speed"のものをアニメーションする
-
                 transform.DOLocalMoveZ(1f, speed).SetRelative();
+                //速度設定
+                animator.SetInteger("state", 1);//移動した時、アニメーションのstateを1にする
+
+                if(Input.GetKeyUp(KeyCode.W))
+                {
+                    animator.SetInteger("state", 0);//移動した時、アニメーションのstateを1にする
+                }
             }
 
             //手前に移動
             if (Input.GetKey(KeyCode.S))
             {
                 //速度設定
-                animator.SetFloat("speed", speed);//移動した時、speed秒の速さでステータスが"speed"のものをアニメーションする
+                animator.SetInteger("state", 1);//移動した時、アニメーションのstateを1にする
 
                 transform.DOLocalMoveZ(-1f, speed).SetRelative();
             }
@@ -57,7 +61,7 @@ public class Character : MonoBehaviour
             if (Input.GetKey(KeyCode.D))
             {
                 //速度設定
-                animator.SetFloat("speed", speed);//移動した時、speed秒の速さでステータスが"speed"のものをアニメーションする
+                animator.SetInteger("state", 1);//移動した時、アニメーションのstateを1にする
 
                 transform.DOLocalMoveX(1f, speed).SetRelative();
             }
@@ -66,7 +70,7 @@ public class Character : MonoBehaviour
             if (Input.GetKey(KeyCode.A))
             {
                 //速度設定
-                animator.SetFloat("speed", speed);//移動した時、speed秒の速さでステータスが"speed"のものをアニメーションする
+                animator.SetInteger("state", 1);//移動した時、アニメーションのstateを1にする
 
                 transform.DOLocalMoveX(-1f, speed).SetRelative();
             }
@@ -87,9 +91,18 @@ public class Character : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// HP更新処理
+    /// </summary>
+
     public void OnHPValue(int hp)
     {
         CharacterHP = hp;
+    }
+
+    public async void HPValueAsync(int hp)
+    {
+        await roomModel.HPValueAsync(hp);
     }
 
 }

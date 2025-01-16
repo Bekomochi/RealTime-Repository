@@ -153,10 +153,10 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     /// </summary>
 
     //位置、回転を送信する
-    public async Task MoveAsync(MovedUser movedUser)
+    public async Task MoveAsync(MovedUser movedUser/*, state*/)
     {
         //サーバーの関数を呼び出す
-        await roomHub.MoveAsync(movedUser);
+        await roomHub.MoveAsync(movedUser/*,state*/);
     }
 
     public void OnMove(MovedUser movedUser)
@@ -200,7 +200,7 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     /// <returns></returns>
 
     public async Task HPValueAsync(int hp)
-    {//HP更新
+    {
         await roomHub.HPValueAsync(hp);
     }
 
