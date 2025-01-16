@@ -1,10 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-using Unity.VisualScripting;
-using UnityEditorInternal;
-using UnityEngine.UI;
 
 public class Particle : MonoBehaviour
 {//水鉄砲のパーティクル用のスクリプト
