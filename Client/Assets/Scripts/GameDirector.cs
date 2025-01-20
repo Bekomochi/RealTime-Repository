@@ -71,7 +71,7 @@ public class GameDirector : MonoBehaviour
     private void OnJoinedUser(JoinedUser user)
     {//入室したらInstantiateする
         GameObject characterObject = Instantiate(characterPrefab);//インスタンス生成
-        characterObject.transform.position = new Vector3(0, 0, 0);
+        characterObject.transform.position = new Vector3(0, -3, 0);
         
         characterList[user.ConnectionID] = characterObject;//フィールドで保持
 
