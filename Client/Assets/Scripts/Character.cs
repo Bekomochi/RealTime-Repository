@@ -45,39 +45,6 @@ public class Character : MonoBehaviour
         {
             x= Input.GetAxisRaw("Horizontal");
             z = Input.GetAxisRaw("Vertical");
-
-            ////奥に移動
-            //if (Input.GetKey(KeyCode.W))
-            //{
-            //    //transform.DOLocalMoveZ(1f, speed).SetRelative();
-            //    animator.SetInteger("state", 1);//移動した時、アニメーションのstateを1にする
-            //}
-
-            ////手前に移動
-            //if (Input.GetKey(KeyCode.S))
-            //{
-            //    ////速度設定
-            //    animator.SetInteger("state", 1);//移動した時、アニメーションのstateを1にする
-            //    //transform.DOLocalMoveZ(-1f, speed).SetRelative();
-            //}
-
-            ////右に移動
-            //if (Input.GetKey(KeyCode.D))
-            //{
-            //    ////速度設定
-            //    //animator.SetInteger("state", 1);//移動した時、アニメーションのstateを1にする
-
-            //    transform.DOLocalMoveX(1f, speed).SetRelative();
-            //}
-
-            ////左に移動
-            //if (Input.GetKey(KeyCode.A))
-            //{
-            //    ////速度設定
-            //    //animator.SetInteger("state", 1);//移動した時、アニメーションのstateを1にする
-
-            //    transform.DOLocalMoveX(-1f, speed).SetRelative();
-            //}
         }
     }
 
