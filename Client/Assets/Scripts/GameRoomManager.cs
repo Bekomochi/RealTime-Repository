@@ -40,8 +40,8 @@ public class GameRoomManager : MonoBehaviour
         ////
         //CountDownText周りの設定
         ////
-        CountNum = 3; //CountNumを初期化
-        CountDownText.text = CountNum.ToString(); //CountDownTextを時間に反映させる
+        //CountNum = 3; //CountNumを初期化
+        //CountDownText.text = CountNum.ToString(); //CountDownTextを時間に反映させる
     }
 
     // Update is called once per frame
@@ -62,7 +62,7 @@ public class GameRoomManager : MonoBehaviour
     private void OnJoinedUser(JoinedUser user)
     {//入室したらInstantiateする
         GameObject characterObject = Instantiate(characterPrefab);//インスタンス生成
-        characterObject.transform.position = new Vector3(0, 0, 0);
+        characterObject.transform.position = new Vector3(0, -3.5f, 0);
 
         characterList[user.ConnectionID] = characterObject;//フィールドで保持
 
@@ -84,8 +84,8 @@ public class GameRoomManager : MonoBehaviour
         //条件が満たされたらCountDownTextを表示して、カウントダウンしていく
         CountDownText.gameObject.SetActive(true); //CountDownTextを表示
 
-        //1秒ごとにカウントダウン
-        InvokeRepeating("CountDown", 1, 1);
+        ////1秒ごとにカウントダウン
+        //InvokeRepeating("CountDown", 1, 1);
     }
 
     public async void OnReadyGame()
@@ -113,7 +113,7 @@ public class GameRoomManager : MonoBehaviour
         if (CountNum == 0)
         {
             //カウントダウンを止める
-            CancelInvoke();
+            //CancelInvoke("");
 
             //CountDownTextを非表示
             CountDownText.gameObject.SetActive(false);

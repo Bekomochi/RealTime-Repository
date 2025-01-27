@@ -97,7 +97,7 @@ public class GameDirector : MonoBehaviour
     public void OnMatchingUser(string roomName)
     {
         CancelInvoke();//画面遷移のタイミングでInvokeを止める
-        Initiate.Fade("GameRoom",Color.black,1.0f);
+        Initiate.Fade("GameRoom",Color.black,1.5f);
         GameDirector.roomName = roomName;
     }
 
@@ -144,7 +144,7 @@ public class GameDirector : MonoBehaviour
          * 反映の際、値の代入ではなくDOLocalMoveに変更。こうすることで、自分以外の画面でも滑らかに動いて見える。
          * 実際に動くスピードは0.6fだが、自分以外の画面だと遅く見えたので、0.3fに設定してある。
          */
-        characterList[movedUser.ConnectionID].gameObject.transform.DOLocalMove((movedUser.pos), 0.3f);
+        characterList[movedUser.ConnectionID].gameObject.transform.DOLocalMove(movedUser.pos, 0.3f);
 
     }
 
