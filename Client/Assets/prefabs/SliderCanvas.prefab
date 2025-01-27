@@ -122,7 +122,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -399,6 +399,7 @@ GameObject:
   - component: {fileID: 5667584889299395687}
   - component: {fileID: 8894290879565917035}
   - component: {fileID: 2388336690407925519}
+  - component: {fileID: 3160202402635015425}
   m_Layer: 5
   m_Name: SliderCanvas
   m_TagString: Untagged
@@ -414,7 +415,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7852238723622815782}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 0.1, y: 0.02, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -489,3 +490,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3160202402635015425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7852238723622815782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae8d40e2fcc946a488ce17e464fe3252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
