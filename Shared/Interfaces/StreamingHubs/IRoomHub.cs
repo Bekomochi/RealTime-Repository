@@ -34,5 +34,7 @@ namespace Shared.Interfaces.StreamingHubs
 
         //HPの更新をサーバーに送信する
         Task HPValueAsync(int hp);
+
+        Task ShotAsync();
     }
 }

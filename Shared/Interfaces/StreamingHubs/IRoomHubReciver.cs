@@ -46,5 +46,8 @@ namespace Shared.Interfaces.StreamingHubs
 
         //HPの更新を通知
         void OnHPValue(int hp);
+
+        //水鉄砲の発射を通知
+        void OnShot();
     }
 }

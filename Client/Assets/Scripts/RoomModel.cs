@@ -54,6 +54,9 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     //HP更新通知
     public Action<int> OnValue { get; set; }
 
+    //水鉄砲発射通知
+    public Action OnShotWater { get; set; }
+
     //MagicOnion接続処理
     public async UniTask ConnectAsync()
     {
@@ -153,10 +156,10 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     /// </summary>
 
     //位置、回転を送信する
-    public async Task MoveAsync(MovedUser movedUser/*, state*/)
+    public async Task MoveAsync(MovedUser movedUser)
     {
         //サーバーの関数を呼び出す
-        await roomHub.MoveAsync(movedUser/*,state*/);
+        await roomHub.MoveAsync(movedUser);
     }
 
     public void OnMove(MovedUser movedUser)
@@ -207,6 +210,16 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     public void OnHPValue(int hp)
     {
         OnValue(hp);
+    }
+
+    public async Task ShotAsync()
+    {
+        await roomHub.ShotAsync();
+    }
+
+    public void OnShot()
+    {
+        OnShotWater();
     }
 
     // Update is called once per frame

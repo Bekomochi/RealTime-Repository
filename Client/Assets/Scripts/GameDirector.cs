@@ -40,6 +40,8 @@ public class GameDirector : MonoBehaviour
         roomModel.OnLeavedUser += this.OnLeavedUser;//‘Şº
         roomModel.OnMoveCharacter += OnMoveCharacter;//ˆÊ’u“¯Šú
         //roomModel.OnValue += OnHPValue;
+        roomModel.OnShotWater += OnShotWater;
+
         //Ú‘±
         await roomModel.ConnectAsync();
     }
@@ -170,4 +172,18 @@ public class GameDirector : MonoBehaviour
     //{
     //    await roomModel.HPValueAsync(hp);
     //}
+
+    /// <summary>
+    /// …“S–C”­Ëˆ—
+    /// </summary>
+
+    public async void ShotAsync()
+    {
+        await roomModel.ShotAsync();
+    }
+
+    public void OnShotWater()
+    {
+        characterList[roomModel.ConnectionId].GetComponent<Character>().OnShotButton();
+    }
 }

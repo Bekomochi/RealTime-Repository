@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using Shared.Interfaces.StreamingHubs;
 using UnityEngine.TextCore.Text;
+using Unity.VisualScripting;
 
 public class Character : MonoBehaviour
 {
@@ -12,40 +13,55 @@ public class Character : MonoBehaviour
     RoomModel roomModel;
     Animator animator;//アニメーター取得
     Rigidbody rigidbody;//RigitBody取得
+    FixedJoystick fixedJoystick;//スマホ対応用タッチパッド
+    Button shotButton;
 
     public static int CharacterHP = 100;//キャラクターの体力。適宜調整
     float x;//キー方向(水平)
     float z;//キー方向(垂直,奥行)
-    float moveSpeed=6;
+    float moveSpeed = 6;
 
-    //FloatingJoystick floatingJoystick;//スマホ対応用スライドパッド
-    float speed = 0.6f;//歩くスピードの変数。0.6fに設定
+    float speed = 5;//歩くスピードの変数。0.6fに設定
     public bool isSelf { get; set; } = false;//自分自身かどうかを判定する変数
 
     // Start is called before the first frame update
     void Start()
     {
-        roomModel= GameObject.Find("RoomModel").GetComponent<RoomModel>();
+        roomModel = GameObject.Find("RoomModel").GetComponent<RoomModel>();
+        fixedJoystick = GameObject.Find("Fixed Joystick").GetComponent<FixedJoystick>();
 
+        shotButton=GetComponent<Button>(); 
         animator = GetComponent<Animator>();
         HPSlider.maxValue = CharacterHP;
         roomModel.OnValue += OnHPValue;
         rigidbody = GetComponent<Rigidbody>();
-
-        //floatingJoystick=GameObject.Find(/*"名前"*/).GetComponent<FloatingJoystick>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        rigidbody.velocity=new Vector3(1,0,0);
-        //速度設定
+        rigidbody.velocity = new Vector3(1, 0, 0);
 
+        //速度設定
         if (isSelf == true)
         {
-            x= Input.GetAxisRaw("Horizontal");
+            x = Input.GetAxisRaw("Horizontal");
             z = Input.GetAxisRaw("Vertical");
         }
+
+        //タッチパッドの設定
+
+        /* floatingJoystick.Verticalで上下、Horizontalで左右の入力値。
+         * メインカメラの向きとかけることで、カメラ進行方向に対する移動量にできる。
+         */
+
+        Vector3 move = (Camera.main.transform.forward
+                        * fixedJoystick.Vertical
+                        + Camera.main.transform.right
+                        * fixedJoystick.Horizontal)
+                        * speed;
+        move.y = rigidbody.velocity.y;
+        rigidbody.velocity = move;
     }
 
     public void OnParticleCollision(GameObject other)
@@ -57,7 +73,8 @@ public class Character : MonoBehaviour
 
             if (CharacterHP <= 0)
             {//キャラクターのHPが0以下になったら
-                CharacterHP= 0;
+                CharacterHP = 0;
+                HPSlider.value = CharacterHP;
             }
         }
     }
@@ -87,5 +104,10 @@ public class Character : MonoBehaviour
 
         //アニメーション設定
         animator.SetFloat("speed", rigidbody.velocity.magnitude);
+    }
+
+    public void OnShotButton()
+    {
+        animator.SetBool("shot", true);
     }
 }

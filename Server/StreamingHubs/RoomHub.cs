@@ -162,6 +162,12 @@ namespace Server.StreamingHubs
             this.BroadcastExceptSelf(room).OnHPValue(hp);
         }
 
+        //水鉄砲発射
+        public async Task ShotAsync()
+        {
+
+        }
+
         ////クライアントの切断
         //protected override ValueTask OnDisconnected()
         //{
