@@ -16,7 +16,7 @@ public class GameDirector : MonoBehaviour
 
     [SerializeField] GameObject characterPrefab;
     [SerializeField] RoomModel roomModel;
-
+    [SerializeField] Transform[] initPosList;
     private static string roomName;
     public static string RoomName {  get { return roomName; } }
 
@@ -73,7 +73,7 @@ public class GameDirector : MonoBehaviour
     private void OnJoinedUser(JoinedUser user)
     {//入室したらInstantiateする
         GameObject characterObject = Instantiate(characterPrefab);//インスタンス生成
-        characterObject.transform.position = new Vector3(0, -3, 0);
+        characterObject.transform.position = initPosList[user.JoinOrder].position;
         
         characterList[user.ConnectionID] = characterObject;//フィールドで保持
 

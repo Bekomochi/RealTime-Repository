@@ -19,9 +19,8 @@ public class Character : MonoBehaviour
     public static int CharacterHP = 100;//キャラクターの体力。適宜調整
     float x;//キー方向(水平)
     float z;//キー方向(垂直,奥行)
-    float moveSpeed = 6;
 
-    float speed = 5;//歩くスピードの変数。0.6fに設定
+    float speed = 10;//歩くスピードの変数
     public bool isSelf { get; set; } = false;//自分自身かどうかを判定する変数
 
     // Start is called before the first frame update
@@ -30,7 +29,7 @@ public class Character : MonoBehaviour
         roomModel = GameObject.Find("RoomModel").GetComponent<RoomModel>();
         fixedJoystick = GameObject.Find("Fixed Joystick").GetComponent<FixedJoystick>();
 
-        shotButton=GetComponent<Button>(); 
+        shotButton = GetComponent<Button>();
         animator = GetComponent<Animator>();
         HPSlider.maxValue = CharacterHP;
         roomModel.OnValue += OnHPValue;
@@ -96,16 +95,18 @@ public class Character : MonoBehaviour
     public void FixedUpdate()
     {
         //速度設定
-        rigidbody.velocity = new Vector3(x, 0, z) * moveSpeed;
-        Vector3 direction = transform.position + new Vector3(x, 0, z) * moveSpeed;
+        rigidbody.velocity = new Vector3(x, 0, z) * speed;
+        Vector3 direction = transform.position + new Vector3(x, 0, z) * speed;
 
         //方向転換
         transform.LookAt(direction);
 
+
         //アニメーション設定
         animator.SetFloat("speed", rigidbody.velocity.magnitude);
-    }
 
+
+    }
     public void OnShotButton()
     {
         animator.SetBool("shot", true);
