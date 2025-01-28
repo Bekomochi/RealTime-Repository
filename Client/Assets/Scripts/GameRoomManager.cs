@@ -10,8 +10,9 @@ using UnityEngine.UI;
 
 public class GameRoomManager : MonoBehaviour
 {
-    [SerializeField] GameObject characterPrefab;
+    [SerializeField] GameObject[] characterPrefab;
     [SerializeField] RoomModel roomModel;
+    [SerializeField] Transform[] initPosList;
     [SerializeField] int CountNum;
 
     GameDirector gameDirector;
@@ -61,7 +62,7 @@ public class GameRoomManager : MonoBehaviour
 
     private void OnJoinedUser(JoinedUser user)
     {//入室したらInstantiateする
-        GameObject characterObject = Instantiate(characterPrefab);//インスタンス生成
+        GameObject characterObject = Instantiate(characterPrefab[user.JoinOrder]);//インスタンス生成
         characterObject.transform.position = new Vector3(0, -3.5f, 0);
 
         characterList[user.ConnectionID] = characterObject;//フィールドで保持
