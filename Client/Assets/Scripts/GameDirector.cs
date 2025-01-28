@@ -14,7 +14,7 @@ using DG.Tweening;
 public class GameDirector : MonoBehaviour
 {//ゲーム進行を管理するクラス
 
-    [SerializeField] GameObject characterPrefab;
+    [SerializeField] GameObject[] characterPrefab;
     [SerializeField] RoomModel roomModel;
     [SerializeField] Transform[] initPosList;
     private static string roomName;
@@ -72,7 +72,7 @@ public class GameDirector : MonoBehaviour
     //ユーザーが入室した時の処理
     private void OnJoinedUser(JoinedUser user)
     {//入室したらInstantiateする
-        GameObject characterObject = Instantiate(characterPrefab);//インスタンス生成
+        GameObject characterObject = Instantiate(characterPrefab[user.JoinOrder]);//インスタンス生成
         characterObject.transform.position = initPosList[user.JoinOrder].position;
         
         characterList[user.ConnectionID] = characterObject;//フィールドで保持
