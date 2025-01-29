@@ -23,7 +23,6 @@ public class GameDirector : MonoBehaviour
     private static int id;
     public static int Id { get { return id; } }
 
-
     //オブジェクトと結びつける
     public InputField IDinputField;
     public GameObject LoseText;
@@ -38,9 +37,9 @@ public class GameDirector : MonoBehaviour
         roomModel.OnJoinedUser += this.OnJoinedUser;//入室
         roomModel.OnMatchingUser += this.OnMatchingUser;//マッチング
         roomModel.OnLeavedUser += this.OnLeavedUser;//退室
-        roomModel.OnMoveCharacter += OnMoveCharacter;//位置同期
+        //roomModel.OnMoveCharacter += OnMoveCharacter;//位置同期
         //roomModel.OnValue += OnHPValue;
-        roomModel.OnShotWater += OnShotWater;
+        //roomModel.OnShotWater += OnShotWater;
 
         //接続
         await roomModel.ConnectAsync();
@@ -81,10 +80,10 @@ public class GameDirector : MonoBehaviour
         if (roomModel.ConnectionId == user.ConnectionID)
         {
             //characterObjectからCharacterをGetして、Character内のbool変数isSelfをtrueにする
-            characterObject.GetComponent<Character>().isSelf = true;
+            characterObject.GetComponent<LobbyCharacter>().isSelf = true;
 
-            //InvokeRepeatingでMovedUserasyncを定期的に呼び出して状態を更新
-            InvokeRepeating("MovedUserasync", 0.1f, 0.1f);
+            ////InvokeRepeatingでMovedUserasyncを定期的に呼び出して状態を更新
+            //InvokeRepeating("MovedUserasync", 0.1f, 0.1f);
         }
     }
 
@@ -136,26 +135,26 @@ public class GameDirector : MonoBehaviour
     /// 位置同期処理
     /// </summary>
 
-    void OnMoveCharacter(MovedUser movedUser)
-    {//MovedUserクラスに接続ID、位置、回転の情報が入っている
+    //void OnMoveCharacter(MovedUser movedUser)
+    //{//MovedUserクラスに接続ID、位置、回転の情報が入っている
 
-        //characterListから対象のGameObjectを取得、位置・回転を反映
-        /* 2024/12/25変更
-         * 反映の際、値の代入ではなくDOLocalMoveに変更。こうすることで、自分以外の画面でも滑らかに動いて見える。
-         */
-        characterList[movedUser.ConnectionID].gameObject.transform.DOLocalMove(movedUser.pos, 0.3f);
-    }
+    //    //characterListから対象のGameObjectを取得、位置・回転を反映
+    //    /* 2024/12/25変更
+    //     * 反映の際、値の代入ではなくDOLocalMoveに変更。こうすることで、自分以外の画面でも滑らかに動いて見える。
+    //     */
+    //    characterList[movedUser.ConnectionID].gameObject.transform.DOLocalMove(movedUser.pos, 0.3f);
+    //}
 
-    public async void MovedUserasync()
-    {
-        MovedUser movedUser = new MovedUser();
-        movedUser.pos = characterList[roomModel.ConnectionId].gameObject.transform.position;
-        movedUser.rot = characterList[roomModel.ConnectionId].gameObject.transform.rotation;
-        movedUser.ConnectionID = roomModel.ConnectionId;
+    //public async void MovedUserasync()
+    //{
+    //    MovedUser movedUser = new MovedUser();
+    //    movedUser.pos = characterList[roomModel.ConnectionId].gameObject.transform.position;
+    //    movedUser.rot = characterList[roomModel.ConnectionId].gameObject.transform.rotation;
+    //    movedUser.ConnectionID = roomModel.ConnectionId;
 
-        //MoveAsync呼び出し
-        await roomModel.MoveAsync(movedUser);
-    }
+    //    //MoveAsync呼び出し
+    //    await roomModel.MoveAsync(movedUser);
+    //}
 
     /// <summary>
     /// HP更新処理
@@ -175,13 +174,13 @@ public class GameDirector : MonoBehaviour
     /// 水鉄砲発射処理
     /// </summary>
 
-    public async void ShotAsync()
-    {
-        await roomModel.ShotAsync();
-    }
+    //public async void ShotAsync()
+    //{
+    //    await roomModel.ShotAsync();
+    //}
 
-    public void OnShotWater()
-    {
-        characterList[roomModel.ConnectionId].GetComponent<Character>().OnShotButton();
-    }
+    //public void OnShotWater()
+    //{
+    //    characterList[roomModel.ConnectionId].GetComponent<Character>().OnShotButton();
+    //}
 }
