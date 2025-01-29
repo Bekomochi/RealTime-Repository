@@ -13,7 +13,7 @@ public class Character : MonoBehaviour
     RoomModel roomModel;
     Animator animator;//アニメーター取得
     Rigidbody rigidbody;//RigitBody取得
-    FixedJoystick fixedJoystick;//スマホ対応用タッチパッド
+    FixedJoystick fixedJoystick;//スマホ対応用タッチパッド(FixedJoyStick)
     Button shotButton;
 
     public static int CharacterHP = 100;//キャラクターの体力。適宜調整
@@ -41,26 +41,32 @@ public class Character : MonoBehaviour
     {
         rigidbody.velocity = new Vector3(1, 0, 0);
 
-        //速度設定
-        if (isSelf == true)
-        {
-            x = Input.GetAxisRaw("Horizontal");
-            z = Input.GetAxisRaw("Vertical");
-        }
-
         //タッチパッドの設定
 
         /* floatingJoystick.Verticalで上下、Horizontalで左右の入力値。
          * メインカメラの向きとかけることで、カメラ進行方向に対する移動量にできる。
          */
 
-        Vector3 move = (Camera.main.transform.forward
-                        * fixedJoystick.Vertical
-                        + Camera.main.transform.right
-                        * fixedJoystick.Horizontal)
-                        * speed;
-        move.y = rigidbody.velocity.y;
-        rigidbody.velocity = move;
+
+        //速度設定
+        if (isSelf == true)
+        {
+
+            if(Input.GetKey(KeyCode.A)||Input.GetKey(KeyCode.D))
+            {
+                x = Input.GetAxisRaw("Horizontal");
+            }
+            else
+            {
+                x = fixedJoystick.Horizontal;
+            }
+
+            if(Input.GetKey(KeyCode.W)||Input.GetKey(KeyCode.S))
+            {
+                z = Input.GetAxisRaw("Vertical");
+            }
+            else { z = fixedJoystick.Vertical; }
+        }
     }
 
     public void OnParticleCollision(GameObject other)
@@ -101,14 +107,12 @@ public class Character : MonoBehaviour
         //方向転換
         transform.LookAt(direction);
 
-
         //アニメーション設定
         animator.SetFloat("speed", rigidbody.velocity.magnitude);
-
-
     }
+
     public void OnShotButton()
-    {
-        animator.SetBool("shot", true);
+    {//発射ボタンを押したら
+        animator.SetBool("shot", true);//発射アニメーションを再生する
     }
 }
