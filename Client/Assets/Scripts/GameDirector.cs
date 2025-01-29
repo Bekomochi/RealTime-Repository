@@ -142,10 +142,8 @@ public class GameDirector : MonoBehaviour
         //characterListから対象のGameObjectを取得、位置・回転を反映
         /* 2024/12/25変更
          * 反映の際、値の代入ではなくDOLocalMoveに変更。こうすることで、自分以外の画面でも滑らかに動いて見える。
-         * 実際に動くスピードは0.6fだが、自分以外の画面だと遅く見えたので、0.3fに設定してある。
          */
         characterList[movedUser.ConnectionID].gameObject.transform.DOLocalMove(movedUser.pos, 0.3f);
-
     }
 
     public async void MovedUserasync()
