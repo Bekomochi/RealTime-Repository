@@ -2881,8 +2881,8 @@ Transform:
   - {fileID: 4394491367297984}
   - {fileID: 4833239558800550}
   - {fileID: 4966206673322014}
-  - {fileID: 4615434273905157062}
   - {fileID: 3926741250356905863}
+  - {fileID: 4615434273905157062}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &95902889527924624
@@ -2895,7 +2895,7 @@ Animator:
   m_GameObject: {fileID: 1773662673501720}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: c0730f876a6e6f5409ba910b8512c7e1, type: 3}
-  m_Controller: {fileID: 9100000, guid: da1913d528391a14eb31d50048c42a0f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 941c6f8cab7558743afd9a835bfe8677, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4012,7 +4012,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000006910261, y: 0.00000011861074, z: 8.1963117e-16,
     w: 1}
-  m_LocalPosition: {x: -0.0000000018626451, y: 6.9844255, z: -9.377682}
+  m_LocalPosition: {x: 0, y: 6.9844255, z: -9.377682}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4143,7 +4143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 1
+  m_BindingMode: 4
   m_FollowOffset: {x: 0, y: 0, z: -10}
   m_XDamping: 1
   m_YDamping: 1
