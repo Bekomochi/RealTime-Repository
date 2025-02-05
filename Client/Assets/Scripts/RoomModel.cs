@@ -17,6 +17,11 @@ using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを継承(実装)
 {
+    //==============================
+    //サーバーと通信するRoomModelクラス
+    //作成:三浦有稀
+    //==============================
+
     private GrpcChannel channel;
     private IRoomHub roomHub;
 
@@ -170,12 +175,20 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     /// <summary>
     /// ゲーム開始処理
     /// </summary>
-    
+
+    /// <summary>
+    /// プレイヤー準備段階の通信
+    /// </summary>
+
     public void OnPreparation()
     {
         OnPreparationUser();
     }
 
+    /// <summary>
+    /// 準備ができたことの通信
+    /// </summary>
+ 
     public void OnReady()
     {
         OnReadyGame();
@@ -186,6 +199,9 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
         await roomHub.ReadyAsync();
     }
 
+    /// <summary>
+    /// ゲーム終了
+    /// </summary>
     public void OnFinish()
     {
         OnFinishGame();
@@ -211,6 +227,11 @@ public class RoomModel :BaseModel, IRoomHubReciver //Reciverのインターフェースを
     {
         OnValue(hp);
     }
+
+    /// <summary>
+    /// 水鉄砲発射の同期
+    /// </summary>
+    /// <returns></returns>
 
     public async Task ShotAsync()
     {

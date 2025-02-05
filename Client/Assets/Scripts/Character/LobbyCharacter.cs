@@ -9,6 +9,11 @@ using Unity.VisualScripting;
 
 public class LobbyCharacter : MonoBehaviour
 {
+    //================================
+    //ロビーでのキャラクターを管理するクラス
+    //作成:三浦有稀
+    //================================
+
     RoomModel roomModel;
     Rigidbody rigidbody;//RigitBody取得
 

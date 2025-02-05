@@ -9,6 +9,11 @@ using Unity.VisualScripting;
 
 public class Character : MonoBehaviour
 {
+    //========================
+    //キャラクターを管理するクラス
+    //作成:三浦有稀
+    //========================
+
     [SerializeField] public Slider HPSlider;
     RoomModel roomModel;
     Animator animator;//アニメーター取得
