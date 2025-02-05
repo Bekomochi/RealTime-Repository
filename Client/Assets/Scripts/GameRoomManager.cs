@@ -14,11 +14,15 @@ public class GameRoomManager : MonoBehaviour
     [SerializeField] RoomModel roomModel;
     [SerializeField] Transform[] initPosList;
     [SerializeField] int CountNum;
+    [SerializeField] AudioClip WaterSE;
 
     GameDirector gameDirector;
     public Text CountDownText; //スタートまでのカウントダウン用のテキスト(3カウント)
     public Text StartText; //開始用テキスト([Start!!])
     public GameObject FinishButton;//終了用仮ボタン
+    
+    //サウンド再生用
+    AudioSource audioSource;
 
     //接続IDをキーにして、キャラクターのオブジェクトを管理
     Dictionary<Guid, GameObject> characterList = new Dictionary<Guid, GameObject>();
@@ -32,11 +36,14 @@ public class GameRoomManager : MonoBehaviour
         roomModel.OnReadyGame += this.OnReadyGame; //ゲーム開始
         roomModel.OnFinishGame += this.OnFinishGame;//ゲーム終了
         roomModel.OnMoveCharacter += OnMoveCharacter;//位置同期
+        roomModel.OnShotWater += OnShotWater;
 
         /* Start関数内で、入室処理を呼び出す。
          * 入室処理内でインスタンス生成がされているので、インスタンス生成は記入しない。
          */
         JoinRoom();//下記のJoinRoomを最初から呼び出す
+
+        audioSource= GetComponent<AudioSource>();
 
         ////
         //CountDownText周りの設定
@@ -154,5 +161,23 @@ public class GameRoomManager : MonoBehaviour
 
         //MoveAsync呼び出し
         await roomModel.MoveAsync(movedUser);
+    }
+
+    /// <summary>
+    /// 水鉄砲発射処理
+    /// </summary>
+
+    public async void ShotAsync()
+    {
+        await roomModel.ShotAsync();
+    }
+
+    public void OnShotWater()
+    {
+        characterList[roomModel.ConnectionId].GetComponent<Character>().OnShotButton();
+
+        //WaterSEを鳴らす
+        audioSource.PlayOneShot(WaterSE);
+
     }
 }
