@@ -2582,6 +2582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1558435487}
   - component: {fileID: 1558435488}
+  - component: {fileID: 1558435489}
   m_Layer: 0
   m_Name: GameDirector
   m_TagString: Untagged
@@ -2621,14 +2622,113 @@ MonoBehaviour:
   - {fileID: 1211325743242968, guid: fbb160f5ed672eb4f8c56192e30b9967, type: 3}
   - {fileID: 1331161064011874, guid: 7bc5de26d31c4664bbea76f0f3bc3317, type: 3}
   - {fileID: 1958596993370342, guid: 25ec3a239812a7643ae8b186867c8755, type: 3}
+  JoinButton: {fileID: 1136406702}
+  LeaveButton: {fileID: 856088474}
   roomModel: {fileID: 2059738427}
   initPosList:
   - {fileID: 84735127}
   - {fileID: 1881379657}
   - {fileID: 594969405}
   - {fileID: 1482107271}
+  ClickSE: {fileID: 8300000, guid: 49c0e0bec89a9ad429c808f909515de8, type: 3}
   IDinputField: {fileID: 988823582}
   LoseText: {fileID: 1872080484}
+--- !u!82 &1558435489
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558435486}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 38da842bcead66e4683fcd7bbdb61107, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &1591754940 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5450625137765520084, guid: b31b63f01adbf864393ca3c73d97daff,
@@ -2741,7 +2841,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1788360656}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &1788360658
 Camera:
   m_ObjectHideFlags: 0
@@ -3163,6 +3263,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1991569745 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8011736006091841616, guid: b31b63f01adbf864393ca3c73d97daff,
+    type: 3}
+  m_PrefabInstance: {fileID: 5423780019966004745}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c2857eead572d43a196d7136edbc42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2038373680
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3444,7 +3556,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1558435488}
+      objectReference: {fileID: 1991569745}
     - target: {fileID: 2096007075152089619, guid: 2565fac537c57684cac11d51cfb05e99,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -3453,7 +3565,7 @@ PrefabInstance:
     - target: {fileID: 2096007075152089619, guid: 2565fac537c57684cac11d51cfb05e99,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnShotWater
+      value: ShotWarter
       objectReference: {fileID: 0}
     - target: {fileID: 2096007075152089619, guid: 2565fac537c57684cac11d51cfb05e99,
         type: 3}
@@ -3463,12 +3575,17 @@ PrefabInstance:
     - target: {fileID: 2096007075152089619, guid: 2565fac537c57684cac11d51cfb05e99,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameDirector, Assembly-CSharp
+      value: WarterGunManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2096007075152089619, guid: 2565fac537c57684cac11d51cfb05e99,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: GameDirector, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2096007075152089619, guid: 2565fac537c57684cac11d51cfb05e99,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4887843793904425527, guid: 2565fac537c57684cac11d51cfb05e99,
         type: 3}
@@ -3553,7 +3670,7 @@ PrefabInstance:
     - target: {fileID: 4887843793904425527, guid: 2565fac537c57684cac11d51cfb05e99,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -132.8
       objectReference: {fileID: 0}
     - target: {fileID: 4887843793904425527, guid: 2565fac537c57684cac11d51cfb05e99,
         type: 3}
