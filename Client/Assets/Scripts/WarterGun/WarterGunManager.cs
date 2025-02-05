@@ -8,6 +8,9 @@ public class WarterGunManager : MonoBehaviour
 
     [SerializeField] private ParticleSystem warterParticle;
 
+    //サウンド再生用
+    AudioSource audioSource;
+
     void Start()
     {
 
@@ -23,12 +26,10 @@ public class WarterGunManager : MonoBehaviour
     /// 水を発射する処理
     /// </summary>
 
-    /* 後ほど、水が当たった時にダメージを与える処理を追加
-     * 当たり判定自体はパーティクルのスクリプトから引用？
-     */
-
     public void ShotWarter()
     {//ボタンを押して水を噴射する為の、クリック時に使う関数
+
+        //warterParticleを再生する
         warterParticle.Play();
     }
 }
