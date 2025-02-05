@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,16 @@ namespace Assets.Scripts
 {
     internal class TitleModel : BaseModel
     {
+        [SerializeField] AudioClip ClickSE;
+
+        //サウンド再生用
+        AudioSource audioSource;
+
+
         public void Start()
         {
-
+            //BGMを再生
+            audioSource = GetComponent<AudioSource>();
         }
 
         public void Update()
@@ -42,7 +50,12 @@ namespace Assets.Scripts
 
         public void movementLobby()
         {
-            SceneManager.LoadScene("Lobby");
+            //SEを再生
+            audioSource.PlayOneShot(ClickSE);
+
+            //シーン移動
+            //SceneManager.LoadScene("Lobby");
+            Initiate.Fade("Lobby", Color.black, 1.5f);
         }
     }
 }

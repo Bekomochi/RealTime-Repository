@@ -12,16 +12,27 @@ using static UnityEngine.Rendering.DebugUI;
 using DG.Tweening;
 
 public class GameDirector : MonoBehaviour
-{//ゲーム進行を管理するクラス
+{
+    //=======================
+    //ゲーム進行を管理するクラス
+    //作成:三浦有稀
+    //=======================
 
-    [SerializeField] GameObject[] characterPrefab;
-    [SerializeField] RoomModel roomModel;
-    [SerializeField] Transform[] initPosList;
+    [SerializeField] GameObject[] characterPrefab; //キャラクターのプレハブ
+    [SerializeField] GameObject JoinButton; //入室ボタン 
+    [SerializeField] GameObject LeaveButton; //退室ボタン
+    [SerializeField] RoomModel roomModel; //RoomModel
+    [SerializeField] Transform[] initPosList; //初期位置
+    [SerializeField] AudioClip ClickSE; //ボタンクリック時SE
+
     private static string roomName;
     public static string RoomName {  get { return roomName; } }
 
     private static int id;
     public static int Id { get { return id; } }
+
+    //サウンド再生用
+    AudioSource audioSource;
 
     //オブジェクトと結びつける
     public InputField IDinputField;
@@ -43,6 +54,12 @@ public class GameDirector : MonoBehaviour
 
         //接続
         await roomModel.ConnectAsync();
+
+        //BGMを再生
+        audioSource = GetComponent<AudioSource>();
+
+        //最初はReaveButtonを非表示にする
+        LeaveButton.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -66,6 +83,18 @@ public class GameDirector : MonoBehaviour
         /*ルーム名とユーザーIDを渡して入室する。
          *最終的には、「ローカルに保存されたUserID」を指定する。
          */
+
+        //LeaveButtonを表示する
+        LeaveButton.gameObject.SetActive(true);
+
+        //JoinButtonを非表示にする
+        JoinButton.gameObject.SetActive(false);
+
+        //IDinputFieldを非表示にする
+        IDinputField.gameObject.SetActive(false);
+
+        //CleckSEを鳴らす
+        audioSource.PlayOneShot(ClickSE);
     }
 
     //ユーザーが入室した時の処理
@@ -98,6 +127,15 @@ public class GameDirector : MonoBehaviour
         CancelInvoke();//画面遷移のタイミングでInvokeを止める
         Initiate.Fade("GameRoom",Color.black,1.5f);
         GameDirector.roomName = roomName;
+
+        //LeaveButtonを非表示にする
+        LeaveButton.gameObject.SetActive(false);
+
+        //JoinButtonを非表示にする
+        JoinButton.gameObject.SetActive(false);
+
+        //IDinputFieldを非表示にする
+        IDinputField.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -112,6 +150,18 @@ public class GameDirector : MonoBehaviour
 
         //退室
         await roomModel.LeaveAsync();
+
+        //LeaveButtonを非表示にする
+        LeaveButton.gameObject.SetActive(false);
+
+        //JoinButtonを表示する
+        JoinButton.gameObject.SetActive(true);
+
+        //IDinputFieldを表示する
+        IDinputField.gameObject.SetActive(true);
+
+        //CleckSEを鳴らす
+        audioSource.PlayOneShot(ClickSE);
     }
 
     //ユーザーが切断した時の処理(切断したらDestroy)
