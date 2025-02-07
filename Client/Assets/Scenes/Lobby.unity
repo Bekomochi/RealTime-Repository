@@ -1075,6 +1075,7 @@ GameObject:
   - component: {fileID: 615233454}
   - component: {fileID: 615233456}
   - component: {fileID: 615233455}
+  - component: {fileID: 615233457}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -1148,6 +1149,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 615233453}
   m_CullTransparentMesh: 1
+--- !u!114 &615233457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615233453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76acfede9be6dd46a45236b4771b6f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  refCamera: {fileID: 1788360658}
+  refRect: {fileID: 615233454}
+  referenceResolution: {x: 1920, y: 1080}
+  matchWidthOrHeight: 0
 --- !u!1 &624869903
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,7 +1671,7 @@ RectTransform:
   m_GameObject: {fileID: 856088474}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 2.7, y: 2.7, z: 2.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 744513909}
@@ -1897,7 +1914,7 @@ RectTransform:
   m_GameObject: {fileID: 988823580}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 2.7, y: 2.7, z: 2.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1182155439}
@@ -1906,7 +1923,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3, y: 258}
+  m_AnchoredPosition: {x: -3, y: 300}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &988823582
@@ -2310,7 +2327,7 @@ RectTransform:
   m_GameObject: {fileID: 1136406702}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 2.7, y: 2.7, z: 2.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1723323808}
@@ -2318,7 +2335,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3, y: 159}
+  m_AnchoredPosition: {x: -3, y: 180}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1136406704
@@ -2960,9 +2977,9 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.06596896
+    x: 0.078947365
     y: 0
-    width: 0.8680621
+    width: 0.84210527
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -3889,9 +3906,9 @@ SceneRoots:
   - {fileID: 255506449}
   - {fileID: 1366048963}
   - {fileID: 2130144710}
+  - {fileID: 558362935}
   - {fileID: 414701727}
   - {fileID: 1040694037}
   - {fileID: 841442134}
   - {fileID: 1047708607}
   - {fileID: 1003316660}
-  - {fileID: 558362935}
