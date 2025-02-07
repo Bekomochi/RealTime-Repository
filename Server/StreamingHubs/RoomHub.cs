@@ -49,7 +49,7 @@ namespace Server.StreamingHubs
 
             /*同じマッチング条件の人がいたらOnmatchingを呼び出す
             12/11時点では、「人数が集まったら」という仮条件にする*/
-            if (joinedUserList.Length >= 1)
+            if (joinedUserList.Length >= 3)
             {
                 this.Broadcast(room).OnMatching(Guid.NewGuid().ToString());//ゲームルームに移動、Guid～で部屋名を毎回ランダムに設定
             }

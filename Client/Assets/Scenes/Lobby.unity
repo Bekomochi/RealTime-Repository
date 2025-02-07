@@ -2301,6 +2301,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1558435488}
+        m_TargetAssemblyTypeName: GameDirector, Assembly-CSharp
+        m_MethodName: JoinButtonSetting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1136406705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2631,6 +2643,8 @@ MonoBehaviour:
   - {fileID: 594969405}
   - {fileID: 1482107271}
   ClickSE: {fileID: 8300000, guid: 49c0e0bec89a9ad429c808f909515de8, type: 3}
+  JoinSE: {fileID: 8300000, guid: 63f89f3df94673049b79cf94773fc3c7, type: 3}
+  LeaveSE: {fileID: 8300000, guid: d0970983b4690774c9432bca070d04bc, type: 3}
   IDinputField: {fileID: 988823582}
   LoseText: {fileID: 1872080484}
 --- !u!82 &1558435489

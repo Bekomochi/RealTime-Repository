@@ -23,7 +23,10 @@ public class GameDirector : MonoBehaviour
     [SerializeField] GameObject LeaveButton; //退室ボタン
     [SerializeField] RoomModel roomModel; //RoomModel
     [SerializeField] Transform[] initPosList; //初期位置
+
     [SerializeField] AudioClip ClickSE; //ボタンクリック時SE
+    [SerializeField] AudioClip JoinSE; //入室時SE
+    [SerializeField] AudioClip LeaveSE; //退室時SE
 
     private static string roomName;
     public static string RoomName {  get { return roomName; } }
@@ -84,6 +87,8 @@ public class GameDirector : MonoBehaviour
          *最終的には、「ローカルに保存されたUserID」を指定する。
          */
 
+        audioSource.PlayOneShot(JoinSE);
+
         //LeaveButtonを表示する
         LeaveButton.gameObject.SetActive(true);
 
@@ -92,9 +97,6 @@ public class GameDirector : MonoBehaviour
 
         //IDinputFieldを非表示にする
         IDinputField.gameObject.SetActive(false);
-
-        //CleckSEを鳴らす
-        audioSource.PlayOneShot(ClickSE);
     }
 
     //ユーザーが入室した時の処理
@@ -114,6 +116,12 @@ public class GameDirector : MonoBehaviour
             ////InvokeRepeatingでMovedUserasyncを定期的に呼び出して状態を更新
             //InvokeRepeating("MovedUserasync", 0.1f, 0.1f);
         }
+    }
+
+    //入室処理とは別の、UIや効果音の関数
+    public void JoinButtonSetting()
+    {
+        audioSource.PlayOneShot(ClickSE);
     }
 
     /// <summary>
@@ -160,8 +168,8 @@ public class GameDirector : MonoBehaviour
         //IDinputFieldを表示する
         IDinputField.gameObject.SetActive(true);
 
-        //CleckSEを鳴らす
-        audioSource.PlayOneShot(ClickSE);
+        //LeaveSEを鳴らす
+        audioSource.PlayOneShot(LeaveSE);
     }
 
     //ユーザーが切断した時の処理(切断したらDestroy)
