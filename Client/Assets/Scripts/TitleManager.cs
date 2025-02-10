@@ -41,7 +41,6 @@ public class TitleManager : MonoBehaviour
         ButtonImage.DOFade(endValue: 0f, duration: 0.1f).SetLoops(-1, LoopType.Yoyo);
 
         //ƒV[ƒ“ˆÚ“®
-        //SceneManager.LoadScene("Lobby");
-        Initiate.Fade("Lobby", Color.black, 1.5f);
+        Initiate.Fade("Lobby", Color.black, 1f);
     }
 }
