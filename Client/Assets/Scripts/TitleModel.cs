@@ -12,23 +12,16 @@ namespace Assets.Scripts
 {
     internal class TitleModel : BaseModel
     {
-        [SerializeField] AudioClip ClickSE;
-
-        //サウンド再生用
-        AudioSource audioSource;
-
 
         public void Start()
         {
-            //BGMを再生
-            audioSource = GetComponent<AudioSource>();
-        }
 
+        }
         public void Update()
         {
             //if (Input.GetMouseButtonDown(0))
             //{
-                //UserModelのLoadUserを呼び出す
+                ////UserModelのLoadUserを呼び出す
 
                 //if (/*userIDを読みこめたら*/)
                 //{//既に登録済なら、何もせずにシーン移動
@@ -46,16 +39,6 @@ namespace Assets.Scripts
                 //SceneManager.LoadScene("Lobby");
                 //}
             //}
-        }
-
-        public void movementLobby()
-        {
-            //SEを再生
-            audioSource.PlayOneShot(ClickSE);
-
-            //シーン移動
-            //SceneManager.LoadScene("Lobby");
-            Initiate.Fade("Lobby", Color.black, 1.5f);
         }
     }
 }
