@@ -15,6 +15,7 @@ public class Character : MonoBehaviour
     //========================
 
     [SerializeField] public Slider HPSlider;
+    [SerializeField] public GameObject virtualCamera;
     RoomModel roomModel;
     Animator animator;//アニメーター取得
     Rigidbody rigidbody;//RigitBody取得
@@ -37,6 +38,7 @@ public class Character : MonoBehaviour
 
         HPSlider.maxValue = CharacterHP;
         roomModel.OnValue += OnHPValue;
+
     }
 
     // Update is called once per frame
@@ -65,6 +67,11 @@ public class Character : MonoBehaviour
                 z = fixedJoystick.Vertical;//FixedJoyStickのVerticalを代入する
             }
         }
+        if (isSelf == false)
+        {//自分じゃなかったら
+            virtualCamera.SetActive(false);//virtualCameraを使用しない
+        }
+
     }
 
     public void OnParticleCollision(GameObject other)
