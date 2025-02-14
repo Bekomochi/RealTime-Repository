@@ -12,15 +12,16 @@ public class GameRoomManager : MonoBehaviour
 {
     [SerializeField] GameObject[] characterPrefab;
     [SerializeField] RoomModel roomModel;
+    [SerializeField] WarterGunManager warterGunManager;
     [SerializeField] Transform[] initPosList;
     [SerializeField] int CountNum;
-    [SerializeField] AudioClip WaterSE;
+    [SerializeField] private ParticleSystem warterParticle;
 
     GameDirector gameDirector;
     public Text CountDownText; //スタートまでのカウントダウン用のテキスト(3カウント)
     public Text StartText; //開始用テキスト([Start!!])
     public GameObject FinishButton;//終了用仮ボタン
-    
+
     //サウンド再生用
     AudioSource audioSource;
 
@@ -44,6 +45,8 @@ public class GameRoomManager : MonoBehaviour
         JoinRoom();//下記のJoinRoomを最初から呼び出す
 
         audioSource= GetComponent<AudioSource>();
+
+        warterGunManager.GetComponent<WarterGunManager>();
 
         ////
         //CountDownText周りの設定
@@ -70,7 +73,7 @@ public class GameRoomManager : MonoBehaviour
     private void OnJoinedUser(JoinedUser user)
     {//入室したらInstantiateする
         GameObject characterObject = Instantiate(characterPrefab[user.JoinOrder]);//インスタンス生成
-        characterObject.transform.position = new Vector3(0, -3.5f, 0);
+        characterObject.transform.position = initPosList[user.JoinOrder].position;
 
         characterList[user.ConnectionID] = characterObject;//フィールドで保持
 
@@ -175,9 +178,6 @@ public class GameRoomManager : MonoBehaviour
     public void OnShotWater()
     {
         characterList[roomModel.ConnectionId].GetComponent<Character>().OnShotButton();
-
-        //WaterSEを鳴らす
-        audioSource.PlayOneShot(WaterSE);
-
+        warterGunManager.ShotWarter();
     }
 }
