@@ -2977,9 +2977,9 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.078947365
+    x: 0
     y: 0
-    width: 0.84210527
+    width: 1
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -3842,6 +3842,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WarterGunManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313680466885894166, guid: b31b63f01adbf864393ca3c73d97daff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5450625137765520084, guid: b31b63f01adbf864393ca3c73d97daff,
         type: 3}
