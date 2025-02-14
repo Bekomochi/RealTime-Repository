@@ -207,6 +207,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 6308493570494883015, guid: c2c419d9803717346bb6c230a82b5afa,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6452942585309672670, guid: c2c419d9803717346bb6c230a82b5afa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -260,7 +265,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1817889481207459203, guid: c2c419d9803717346bb6c230a82b5afa,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1215071935201619888}
   m_SourcePrefab: {fileID: 100100000, guid: c2c419d9803717346bb6c230a82b5afa, type: 3}
 --- !u!198 &656979091190497866 stripped
 ParticleSystem:
@@ -268,6 +277,25 @@ ParticleSystem:
     type: 3}
   m_PrefabInstance: {fileID: 2820395650671307124}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4476153878837708023 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1817889481207459203, guid: c2c419d9803717346bb6c230a82b5afa,
+    type: 3}
+  m_PrefabInstance: {fileID: 2820395650671307124}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1215071935201619888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4476153878837708023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00e3bf7d0a66ef943a1273ae6f1d4111, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warterParticle: {fileID: 0}
 --- !u!4 &9126962395616271786 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6452942585309672670, guid: c2c419d9803717346bb6c230a82b5afa,
