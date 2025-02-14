@@ -854,7 +854,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Water\n\tCannon\n\t\tBattle"
+  m_Text: "Water\n\tGun\n\t\tBattle"
 --- !u!222 &457107971
 CanvasRenderer:
   m_ObjectHideFlags: 0
