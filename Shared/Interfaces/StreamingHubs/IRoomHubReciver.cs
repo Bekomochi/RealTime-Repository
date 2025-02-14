@@ -31,7 +31,7 @@ namespace Shared.Interfaces.StreamingHubs
         //}
 
         //位置、回転、状態をクライアントに通知する
-        void OnMove(MovedUser movedUser/*,CharacterState state*/);//MovedUserクラスに接続ID、位置、回転の情報が入っている
+        void OnMove(MovedUser movedUser);//MovedUserクラスに接続ID、位置、回転の情報が入っている
 
         //アニメーターのstateを、列挙型で定義
 

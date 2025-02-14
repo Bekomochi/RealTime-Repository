@@ -74,7 +74,7 @@ namespace Server.StreamingHubs
             return leavedUser;
         }
 
-        //位置、回転をクライアントに追加する
+        //位置、回転をクライアントに通知する
         public async Task MoveAsync(MovedUser movedUser)
         {
             //グループストレージからRoomDataを取得する

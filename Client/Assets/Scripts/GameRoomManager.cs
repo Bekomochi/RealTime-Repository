@@ -21,6 +21,7 @@ public class GameRoomManager : MonoBehaviour
     public Text CountDownText; //スタートまでのカウントダウン用のテキスト(3カウント)
     public Text StartText; //開始用テキスト([Start!!])
     public GameObject FinishButton;//終了用仮ボタン
+    static public int JoinOrder;
 
     //サウンド再生用
     AudioSource audioSource;
@@ -48,9 +49,10 @@ public class GameRoomManager : MonoBehaviour
 
         warterGunManager.GetComponent<WarterGunManager>();
 
-        ////
+        //
         //CountDownText周りの設定
-        ////
+        //
+
         //CountNum = 3; //CountNumを初期化
         //CountDownText.text = CountNum.ToString(); //CountDownTextを時間に反映させる
     }
@@ -73,7 +75,7 @@ public class GameRoomManager : MonoBehaviour
     private void OnJoinedUser(JoinedUser user)
     {//入室したらInstantiateする
         GameObject characterObject = Instantiate(characterPrefab[user.JoinOrder]);//インスタンス生成
-        characterObject.transform.position = initPosList[user.JoinOrder].position;
+        characterObject.transform.position = initPosList[GameDirector.Id].position;
 
         characterList[user.ConnectionID] = characterObject;//フィールドで保持
 
@@ -150,9 +152,14 @@ public class GameRoomManager : MonoBehaviour
         //characterListから対象のGameObjectを取得、位置・回転を反映
         /* 2024/12/25変更
          * 反映の際、値の代入ではなくDOLocalMoveに変更。こうすることで、自分以外の画面でも滑らかに動いて見える。
-         * 実際に動くスピードは0.6fだが、自分以外の画面だと遅く見えたので、0.3fに設定してある。
          */
-        characterList[movedUser.ConnectionID].gameObject.transform.DOLocalMove((movedUser.pos), 0.3f);
+
+        if (characterList.ContainsKey(movedUser.ConnectionID))
+        {
+            characterList[movedUser.ConnectionID].gameObject.transform.DOLocalMove(movedUser.pos, 0.3f);
+            characterList[movedUser.ConnectionID].gameObject.transform.DOLocalRotateQuaternion(movedUser.rot, 0.3f);
+        }
+
     }
 
     public async void MovedUserasync()
