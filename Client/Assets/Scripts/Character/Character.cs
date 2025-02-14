@@ -32,11 +32,11 @@ public class Character : MonoBehaviour
     {
         roomModel = GameObject.Find("RoomModel").GetComponent<RoomModel>();
         fixedJoystick = GameObject.Find("Fixed Joystick").GetComponent<FixedJoystick>();
-
         animator = GetComponent<Animator>();
+        rigidbody = GetComponent<Rigidbody>();
+
         HPSlider.maxValue = CharacterHP;
         roomModel.OnValue += OnHPValue;
-        rigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame

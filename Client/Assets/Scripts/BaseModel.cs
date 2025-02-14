@@ -12,6 +12,6 @@ namespace Assets.Scripts
         /*MagicOnion通信用のベースクラスを作っておく。
          * 現状、やることは無いがURLはここ1箇所にする。*/
 
-        public const string ServerURL = "http://localhost:7000";
+        public const string ServerURL = "http://watergun-dns.japaneast.cloudapp.azure.com:7000";
     }
 }
